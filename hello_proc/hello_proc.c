@@ -17,6 +17,9 @@ ssize_t procfile_read(struct file *filp, char __user *buf, size_t count,
 ssize_t procfile_write(struct file *filp, const char __user *buf, size_t count,
                 loff_t *f_pos);
 
+int hello_proc_init(void); 
+void hello_proc_exit(void);
+
 /* Global variables go here */
 
 /* This global structure is necessary to bind the regular file read and write 
