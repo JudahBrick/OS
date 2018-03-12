@@ -3,6 +3,7 @@
 #include <linux/proc_fs.h>
 #include <linux/vmalloc.h>
 #include <asm-generic/uaccess.h>
+#include <linux/uaccess.h>
 
 MODULE_LICENSE("GPL");  /* Kernel needs this license. */
 
