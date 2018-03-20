@@ -2,7 +2,7 @@
 #include <linux/kernel.h>
 #include <linux/proc_fs.h>
 #include <linux/vmalloc.h>
-#include <asm-generic/uaccess.h>
+//#include <asm-generic/uaccess.h>
 #include <linux/uaccess.h>
 
 MODULE_LICENSE("GPL");  /* Kernel needs this license. */
@@ -38,7 +38,7 @@ static struct file_operations hello_proc_ops = {
  * module load.  This file is created as /proc/helloworld. */
 int hello_proc_init(void) {
 
-   proc_create_data(ENTRY_NAME, 0, NULL, &hello_proc_ops, NULL);
+   proc_create_data(ENTRY_NAME, PERMS, NULL, &hello_proc_ops, NULL);
    
    /* This message will print in /var/log/syslog or on the first tty. */
    printk("/proc/%s created\n", ENTRY_NAME);
