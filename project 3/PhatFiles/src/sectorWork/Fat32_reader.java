@@ -2,9 +2,9 @@ package sectorWork;
 
 public class Fat32_reader {
 
-	int MAX_CMD = 80;
+	static int MAX_CMD = 80;
 	public static void main(String[] args){
-		char cmd_line[MAX_CMD];
+		char[] cmdLine;
 
 
 		/* Parse args and open our image file */
@@ -12,59 +12,63 @@ public class Fat32_reader {
 		/* Parse boot sector and get information */
 
 		/* Get root directory address */
-		//printf("Root addr is 0x%x\n", root_addr);
+		//System.out.println("Root addr is 0x%x\n", root_addr);
 
 
 		/* Main loop.  You probably want to create a helper function
 	       for each command besides quit. */
 
-		while(True) {
-			bzero(cmd_line, MAX_CMD);
-			printf("/]");
-			fgets(cmd_line,MAX_CMD,stdin);
+		boolean cont = true;
+		while(cont) {
+			cmdLine = new char[MAX_CMD];
+			System.out.println("/]");
+			//fgets(cmd_line,MAX_CMD,stdin);
+			//Scanner  scan = new Scanner
 
 			/* Start comparing input */
-			if(strncmp(cmd_line,"info",4)==0) {
-				printf("Going to display info.\n");
-			}
-
-			else if(strncmp(cmd_line,"open",4)==0) {
-				printf("Going to open!\n");
-			}
-
-			else if(strncmp(cmd_line,"close",5)==0) {
-				printf("Going to close!\n");
-			}
+			switch(args[0]){
 			
-			else if(strncmp(cmd_line,"size",4)==0) {
-				printf("Going to size!\n");
-			}
-
-			else if(strncmp(cmd_line,"cd",2)==0) {
-				printf("Going to cd!\n");
-			}
-
-			else if(strncmp(cmd_line,"ls",2)==0) {
-				printf("Going to ls.\n");
-			}
-
-			else if(strncmp(cmd_line,"read",4)==0) {
-				printf("Going to read!\n");
-			}
-			
-			else if(strncmp(cmd_line,"quit",4)==0) {
-				printf("Quitting.\n");
+			case "info":
+				System.out.println("Going to display info.\n");
 				break;
-			}
-			else
-				printf("Unrecognized command.\n");
+				
+			case "open":
+				System.out.println("Going to open!\n");
+				break;
+				
+			case "close":
+				System.out.println("Going to close!\n");
+				break;
+				
+			case "size":
+				System.out.println("Going to size!\n");
+				break;
+				
+			case "cd":
+				System.out.println("Going to cd!\n");
+				break;
+				
+			case "ls":
+				System.out.println("Going to ls!\n");
+				break;
+				
+			case "read":
+				System.out.println("Going to read!\n");
+				break;
+				
+			case "quit":
+				cont = false;
+				break;
+					
+			default:
+				System.out.println("Unrecognized command.\n");
 
 
 		}
 
 		/* Close the file */
 
-		return 0; /* Success */
+		//return 0; /* Success */
 	}
 	}
 }
