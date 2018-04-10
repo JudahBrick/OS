@@ -19,7 +19,8 @@ public class Fat32_reader {
 	public static void main(String[] args){
 		char[] cmdLine;
 		//File diskFile = new File("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
+		//Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
+		Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
@@ -129,18 +130,10 @@ public class Fat32_reader {
 		int front = disk[39] << 24;
 		int second = disk[38] << 16;
 		int third = disk[37] << 8;
-		int fourth = disk[36];
-		front = Math.abs(front);
-		second = Math.abs(second);
-		third = Math.abs(third);
-		fourth = Math.abs(fourth);
-		System.out.println(front);
-		System.out.println(second);
-		System.out.println(third);
-		System.out.println(fourth);
-		System.out.println(disk[36]);
+		int fourth = disk[36] ^ 0xFFFFFF00;
 		front = (front | second | third | fourth);
-		Integer unsigned = front;
+		//front = ((disk[39] << 24) | (disk[38] << 16) | (disk[37] << 8) ^ fourth);
+		//Integer unsigned = front;
 		System.out.println( front); //TODO this doesnt work
 		
 	
