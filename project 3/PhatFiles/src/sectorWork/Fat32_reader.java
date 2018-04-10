@@ -12,6 +12,10 @@ public class Fat32_reader {
 	static int MAX_CMD = 80;
 	static byte[] disk;
 	
+	static int BPB_BytsPerSec;
+	static int BPB_SecPerClus;
+	static int rootAddr;
+	
 	public static void main(String[] args){
 		char[] cmdLine;
 		//File diskFile = new File("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
@@ -22,9 +26,16 @@ public class Fat32_reader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*for(int i = 0; i < 500; i++){
-			System.out.println((char)disk[i]);
-		}*/
+		
+		int first = disk[12];
+		first = first << 8;
+		BPB_BytsPerSec = first | disk[11];
+		BPB_SecPerClus = disk[13];
+		
+		int BPB_RootEntCnt = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
+		rootAddr = ((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
+		
+		System.out.println( BPB_RootEntCnt);
 
 
 		/* Parse args and open our image file */
@@ -76,6 +87,7 @@ public class Fat32_reader {
 				
 			case "ls":
 				System.out.println("Going to ls!\n");
+				ls();
 				break;
 				
 			case "read":
@@ -100,29 +112,57 @@ public class Fat32_reader {
 	}
 	static void info(){
 		//BPB_BytsPerSec
-		int first = disk[12];
-		first = first << 8;
-		int full = first | disk[11]; 
-		System.out.println( full);
+		System.out.println(BPB_BytsPerSec);
 		
 		//BPB_SecPerClus
-		System.out.println(disk[13]);
+		System.out.println(BPB_SecPerClus);
 		
 		//BPB_RsvdSecCnt
-		first = disk[15] << 8;
-		full = first | disk[14];
+		int first = disk[15] << 8;
+		int full = first | disk[14];
 		System.out.println( full);
 		
 		//BPB_NumFATS
 		System.out.println(disk[16]);
 		
 		//BPB_FATSz32
-		long front = disk[39] << 32;
-		int second = disk[38] << 24;
-		int third = disk[37] << 16;
-		front = (front | second | third | disk[36]);
-		Integer unsigned = full;
+		int front = disk[39] << 24;
+		int second = disk[38] << 16;
+		int third = disk[37] << 8;
+		int fourth = disk[36];
+		front = Math.abs(front);
+		second = Math.abs(second);
+		third = Math.abs(third);
+		fourth = Math.abs(fourth);
+		System.out.println(front);
+		System.out.println(second);
+		System.out.println(third);
+		System.out.println(fourth);
+		System.out.println(disk[36]);
+		front = (front | second | third | fourth);
+		Integer unsigned = front;
 		System.out.println( front); //TODO this doesnt work
 		
+	
+		
+	}
+	
+	static void ls(){
+		System.out.println(rootAddr);
+		for(int i = rootAddr; i < 1224; i ++){
+			System.out.println(disk[i]);
+		}
+		System.out.println(disk[rootAddr]);
+		System.out.println((char)disk[rootAddr + 1]);
+		System.out.println((char)disk[rootAddr + 2]);
+		System.out.println((char)disk[rootAddr + 3]);
+		System.out.println((char)disk[rootAddr+  4]);
+		System.out.println((char)disk[rootAddr + 5]);
+		System.out.println((char)disk[rootAddr + 6]);
+		System.out.println((char)disk[rootAddr + 7]);
+		
+		
+
+		System.out.println("total bytes  "  + disk.length);
 	}
 }
