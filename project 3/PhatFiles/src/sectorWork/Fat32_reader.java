@@ -19,8 +19,8 @@ public class Fat32_reader {
 	public static void main(String[] args){
 		char[] cmdLine;
 		//File diskFile = new File("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		//Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
+		Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
+		//Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
@@ -34,7 +34,7 @@ public class Fat32_reader {
 		BPB_SecPerClus = disk[13];
 		
 		int BPB_RootEntCnt = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
-		rootAddr = ((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
+		rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
 		
 		System.out.println( BPB_RootEntCnt);
 
@@ -142,9 +142,24 @@ public class Fat32_reader {
 	
 	static void ls(){
 		System.out.println(rootAddr);
-		for(int i = rootAddr; i < 1224; i ++){
-			System.out.println(disk[i]);
+		for(int i = 0; i < 1224; i ++){
+			System.out.printf("byte number: %d   %x\n",  i, disk[i]);
 		}
+		
+		/*
+		 * Results
+		 * byte number: 71   43
+			byte number: 72   48
+			byte number: 73   55
+			byte number: 74   43
+			byte number: 75   4b
+			byte number: 76   4c
+			byte number: 77   45
+			byte number: 78   53
+			byte number: 79   20
+			byte number: 80   20
+			byte number: 81   20
+		 */
 		System.out.println(disk[rootAddr]);
 		System.out.println((char)disk[rootAddr + 1]);
 		System.out.println((char)disk[rootAddr + 2]);
