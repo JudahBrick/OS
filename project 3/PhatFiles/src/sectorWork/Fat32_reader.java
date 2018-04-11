@@ -19,8 +19,8 @@ public class Fat32_reader {
 	public static void main(String[] args){
 		char[] cmdLine;
 		//File diskFile = new File("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		//Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
+		//Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
+		Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
@@ -36,7 +36,8 @@ public class Fat32_reader {
 		int BPB_RootEntCnt = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
 		rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
 		
-		System.out.println( BPB_RootEntCnt);
+		File directory = new File("./");
+		System.out.println(directory.getAbsolutePath());
 
 
 		/* Parse args and open our image file */
