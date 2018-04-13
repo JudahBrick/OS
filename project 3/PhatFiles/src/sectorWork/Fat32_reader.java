@@ -230,9 +230,22 @@ public class Fat32_reader {
 	}
 	
 	
-	void parseDir(){
+	void parseDir(int addr){
+		boolean EOC = false;
 		
-		  go to 32nd byte for first ebtry
+		for(int i = addr;!EOC; i += 32){
+			if(disk[addr + 11] == 0x0F){
+				continue;
+			}
+			else if(disk[addr + 11] == 0x0F){ // wtv it is we need to check for directror
+				
+			}
+			else if(disk[addr + 11] == 0x01){ // wtv it is we need to check for file
+				
+			}
+		}
+		
+		  go to 32nd byte for first entry
 		  if byte 11 == 0x0F{
 		  	read these 32 bytes as long directory
 		  	and attach it to the nest 32 bytes

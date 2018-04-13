@@ -9,3 +9,262 @@
 2018-04-13 10:13:42,954 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
 2018-04-13 10:13:42,956 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2018-04-13 10:13:42,957 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 14:58:11,608 [main] INFO  o.e.m2e.actions.ExecutePomAction - Creating new launch configuration
+2018-04-13 14:58:24,411 [Worker-62] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 14:58:24,413 [Worker-62] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 15:00:06,021 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/takari/m2e/workspace/org.eclipse.m2e.workspace.cli/0.3.1/org.eclipse.m2e.workspace.cli-0.3.1-sources.jar
+2018-04-13 15:00:06,035 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.5.2/plexus-classworlds-2.5.2-sources.jar
+2018-04-13 15:00:06,050 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/3.3.9/maven-core-3.3.9-sources.jar
+2018-04-13 15:00:06,056 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/3.3.9/maven-model-3.3.9-sources.jar
+2018-04-13 15:00:06,064 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/3.3.9/maven-settings-3.3.9-sources.jar
+2018-04-13 15:00:06,073 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings-builder/3.3.9/maven-settings-builder-3.3.9-sources.jar
+2018-04-13 15:00:06,081 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-builder-support/3.3.9/maven-builder-support-3.3.9-sources.jar
+2018-04-13 15:00:06,089 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/3.3.9/maven-repository-metadata-3.3.9-sources.jar
+2018-04-13 15:00:06,097 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/3.3.9/maven-artifact-3.3.9-sources.jar
+2018-04-13 15:00:06,106 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/3.3.9/maven-plugin-api-3.3.9-sources.jar
+2018-04-13 15:00:06,115 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-model-builder/3.3.9/maven-model-builder-3.3.9-sources.jar
+2018-04-13 15:00:06,122 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-aether-provider/3.3.9/maven-aether-provider-3.3.9-sources.jar
+2018-04-13 15:00:06,134 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-api/1.0.2.v20150114/aether-api-1.0.2.v20150114-sources.jar
+2018-04-13 15:00:06,142 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/1.0.2.v20150114/aether-util-1.0.2.v20150114-sources.jar
+2018-04-13 15:00:06,152 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.21/plexus-interpolation-1.21-sources.jar
+2018-04-13 15:00:06,164 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.22/plexus-utils-3.0.22-sources.jar
+2018-04-13 15:00:06,172 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.6/plexus-component-annotations-1.6-sources.jar
+2018-04-13 15:00:06,178 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3-sources.jar
+2018-04-13 15:00:06,188 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4-sources.jar
+2018-04-13 15:00:06,197 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-embedder/3.3.9/maven-embedder-3.3.9-sources.jar
+2018-04-13 15:00:06,205 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/sonatype/plexus/plexus-cipher/1.7/plexus-cipher-1.7-sources.jar
+2018-04-13 15:00:06,212 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2-sources.jar
+2018-04-13 15:00:06,221 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/maven-compat/3.3.9/maven-compat-3.3.9-sources.jar
+2018-04-13 15:00:06,232 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/2.10/wagon-provider-api-2.10-sources.jar
+2018-04-13 15:00:06,240 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/javax/enterprise/cdi-api/1.0/cdi-api-1.0-sources.jar
+2018-04-13 15:00:06,250 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/google/guava/guava/18.0/guava-18.0-sources.jar
+2018-04-13 15:00:06,268 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-impl/1.0.2.v20150114/aether-impl-1.0.2.v20150114-sources.jar
+2018-04-13 15:00:06,278 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-spi/1.0.2.v20150114/aether-spi-1.0.2.v20150114-sources.jar
+2018-04-13 15:00:06,289 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/takari/aether/aether-connector-okhttp/0.16.0/aether-connector-okhttp-0.16.0-sources.jar
+2018-04-13 15:00:06,303 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okhttp/okhttp/2.5.0/okhttp-2.5.0-sources.jar
+2018-04-13 15:00:06,313 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.6.0/okio-1.6.0-sources.jar
+2018-04-13 15:00:06,320 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-connector-basic/1.0.2.v20150114/aether-connector-basic-1.0.2.v20150114-sources.jar
+2018-04-13 15:00:06,330 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-transport-wagon/1.0.2.v20150114/aether-transport-wagon-1.0.2.v20150114-sources.jar
+2018-04-13 15:00:06,339 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-file/2.10/wagon-file-2.10-sources.jar
+2018-04-13 15:00:06,520 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar
+2018-04-13 15:00:06,541 [Worker-61] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.7.5/slf4j-simple-1.7.5-sources.jar
+2018-04-13 15:01:37,616 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:01:37,617 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:01:37,621 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:01:37,621 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:07:02,737 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:07:02,738 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:07:02,739 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:07:02,739 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:14:45,897 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:14:45,899 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:14:45,901 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:14:45,902 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:14:57,121 [Worker-61] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:14:57,122 [Worker-61] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:14:57,125 [Worker-61] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:14:57,125 [Worker-61] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:15:19,432 [Worker-65] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:15:19,432 [Worker-65] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:15:19,436 [Worker-65] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:15:19,436 [Worker-65] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:17:25,344 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:17:25,344 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:17:25,347 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:17:25,347 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:23:37,237 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:23:37,238 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:23:37,241 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:23:37,242 [Worker-63] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:24:09,775 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:09,775 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:24:09,777 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:09,777 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:24:22,138 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:22,138 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:24:22,143 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:22,143 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:24:31,671 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:31,672 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:24:31,673 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:31,673 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:24:48,646 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:48,646 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:24:48,648 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:48,649 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:24:53,974 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:53,974 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:24:53,976 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:24:53,977 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:25:04,300 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:25:04,301 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:25:04,303 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:25:04,303 [Worker-62] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:25:27,443 [Worker-71] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 15:25:27,444 [Worker-71] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 15:35:03,861 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:35:03,862 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:35:03,866 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:35:03,866 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:35:14,617 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:35:14,617 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:35:14,622 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:35:14,622 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:35:17,370 [Worker-73] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 15:35:17,370 [Worker-73] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 15:36:27,447 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:36:27,449 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:36:27,451 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:36:27,452 [Worker-69] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:36:33,909 [Worker-69] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 15:36:33,909 [Worker-69] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 15:40:08,591 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:40:08,592 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:40:08,593 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:40:08,593 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:40:19,203 [Worker-75] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:40:19,203 [Worker-75] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:40:19,205 [Worker-75] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:40:19,205 [Worker-75] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:40:23,950 [Worker-68] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 15:40:23,951 [Worker-68] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 15:41:11,241 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:41:11,241 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:41:11,245 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:41:11,245 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 15:41:13,920 [Worker-77] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 15:41:13,920 [Worker-77] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 15:53:31,167 [Worker-76] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:53:31,170 [Worker-76] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 15:53:31,172 [Worker-76] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 15:53:31,172 [Worker-76] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 16:57:26,065 [Worker-80] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 16:57:26,066 [Worker-80] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 16:57:26,068 [Worker-80] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 16:57:26,068 [Worker-80] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 16:57:49,831 [Worker-80] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 16:57:49,832 [Worker-80] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 16:59:01,733 [Worker-93] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 16:59:01,733 [Worker-93] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 16:59:01,736 [Worker-93] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 16:59:01,736 [Worker-93] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:00:40,229 [Worker-89] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:00:40,229 [Worker-89] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:00:40,232 [Worker-89] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:00:40,232 [Worker-89] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:00:43,584 [Worker-94] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:00:43,584 [Worker-94] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:02:12,616 [Worker-91] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:02:12,619 [Worker-91] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:02:12,620 [Worker-91] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:02:12,620 [Worker-91] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:02:44,060 [Worker-94] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:02:44,060 [Worker-94] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:02:44,061 [Worker-94] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:02:44,061 [Worker-94] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:02:52,171 [Worker-89] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:02:52,172 [Worker-89] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:05:57,923 [Worker-95] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:05:57,923 [Worker-95] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:05:57,927 [Worker-95] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:05:57,927 [Worker-95] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:06:03,270 [Worker-95] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:06:03,271 [Worker-95] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:14:37,824 [Worker-97] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:14:37,826 [Worker-97] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:14:37,835 [Worker-97] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:14:37,835 [Worker-97] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:15:16,473 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:15:16,475 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:15:16,476 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:15:16,476 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:15:19,528 [Worker-99] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:15:19,529 [Worker-99] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:15:45,699 [Worker-97] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:15:45,700 [Worker-97] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:15:45,702 [Worker-97] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:15:45,702 [Worker-97] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:15:48,019 [Worker-102] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:15:48,019 [Worker-102] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:20:09,085 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:20:09,086 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:20:09,089 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:20:09,089 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:20:24,278 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:20:24,278 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:20:24,280 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:20:24,280 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:20:29,288 [Worker-105] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:20:29,288 [Worker-105] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:21:27,292 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:21:27,292 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:21:27,293 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:21:27,294 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:21:32,540 [Worker-100] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:21:32,540 [Worker-100] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:22:29,873 [Worker-103] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:22:29,873 [Worker-103] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:22:29,875 [Worker-103] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:22:29,875 [Worker-103] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:22:33,870 [Worker-107] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:22:33,870 [Worker-107] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:22:33,871 [Worker-107] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:22:33,871 [Worker-107] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:22:36,595 [Worker-103] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:22:36,595 [Worker-103] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:22:55,325 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:22:55,326 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:22:55,327 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:22:55,327 [Worker-102] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:22:58,292 [Worker-107] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:22:58,292 [Worker-107] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:32:30,553 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:32:30,555 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:32:30,556 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:32:30,557 [Worker-100] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:38:17,711 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:38:17,714 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:38:17,716 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:38:17,716 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:38:44,963 [Worker-103] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:38:44,963 [Worker-103] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:38:44,965 [Worker-103] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:38:44,965 [Worker-103] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:38:48,207 [Worker-108] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:38:48,207 [Worker-108] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:41:07,631 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:41:07,632 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:41:07,634 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:41:07,634 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:41:12,007 [Worker-113] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:41:12,008 [Worker-113] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:42:03,381 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:42:03,382 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:42:03,384 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:42:03,384 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:43:20,082 [Worker-109] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:43:20,083 [Worker-109] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:43:20,086 [Worker-109] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:43:20,086 [Worker-109] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:43:22,795 [Worker-111] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:43:22,795 [Worker-111] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:44:04,077 [Worker-110] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:44:04,077 [Worker-110] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:44:04,080 [Worker-110] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:44:04,080 [Worker-110] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:44:19,727 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:44:19,727 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:44:19,730 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:44:19,730 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:44:25,708 [Worker-108] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:44:25,708 [Worker-108] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:45:00,052 [Worker-112] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:45:00,053 [Worker-112] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:45:00,054 [Worker-112] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:45:00,054 [Worker-112] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources
+2018-04-13 17:45:03,666 [Worker-114] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/yehudabrick/COMPSCI/codeU/CodeU
+2018-04-13 17:45:03,666 [Worker-114] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B appengine:devserver
+2018-04-13 17:53:00,765 [Worker-113] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:53:00,768 [Worker-113] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/main/resources
+2018-04-13 17:53:00,771 [Worker-113] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-04-13 17:53:00,771 [Worker-113] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/yehudabrick/COMPSCI/codeU/CodeU/src/test/resources

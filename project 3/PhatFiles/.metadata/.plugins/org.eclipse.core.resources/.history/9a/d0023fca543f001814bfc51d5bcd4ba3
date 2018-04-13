@@ -1,0 +1,15 @@
+package sectorWork;
+
+public class File {	
+	
+	public boolean isFile = false;
+	public boolean isDirectory = false;
+	
+	
+	public File File(){
+		
+		
+		return this;
+	}
+
+}
