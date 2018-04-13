@@ -15,12 +15,13 @@ public class Fat32_reader {
 	static int BPB_BytsPerSec;
 	static int BPB_SecPerClus;
 	static int rootAddr;
+	static int FAT;
 	
 	public static void main(String[] args){
 		char[] cmdLine;
 		//File diskFile = new File("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		//Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
+		Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
+		//Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
@@ -33,13 +34,66 @@ public class Fat32_reader {
 		BPB_BytsPerSec = first | disk[11];
 		BPB_SecPerClus = disk[13];
 		
-		int BPB_RootEntCnt = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
+		int BPB_RootClus = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
 		rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
 		
 		File directory = new File("./");
 		System.out.println(directory.getAbsolutePath());
+		
+		int BPB_ResvdSectCnt = (disk[15] & 0x000000FF) << 8 | (disk[14] & 0x000000FF);
+		int BPB_NumFATs = disk[16];
+		int FATsz = ((disk[39] << 24) | ((disk[38] & 0x000000FF) << 16)  | ((disk[37] & 0x000000FF) << 8 ) | (disk[36] & 0x000000FF));
+		int BPB_RootEntCnt =  disk[18] << 8 | disk[17];
+		int RootDirSectors;
+		int TotSec = ((disk[35] << 24) | ((disk[34] & 0x000000FF) << 16)  | ((disk[33] & 0x000000FF) << 8 ) | (disk[32] & 0x000000FF));
+		;
+		
+		
+		RootDirSectors = ((BPB_RootEntCnt * 32) + (BPB_BytsPerSec -1)) / BPB_BytsPerSec;
+		
+		int FirstDataSector = BPB_ResvdSectCnt + (BPB_NumFATs * FATsz) + RootDirSectors;
+		
+		int FirstSectorofCluster = ((BPB_RootClus - 2) * BPB_SecPerClus) + FirstDataSector;
+		
+		int DataSec = TotSec - (BPB_ResvdSectCnt + (BPB_NumFATs * FATsz) + RootDirSectors);
+		
+		int CountofClusters = DataSec / BPB_SecPerClus;
+		
+		int FATOffset = BPB_RootClus * 4;
+		
+		int ThisFATSecNum = BPB_ResvdSectCnt + (FATOffset / BPB_BytsPerSec);
+		int ThisFATEntOffset = FATOffset % BPB_BytsPerSec;
 
+		rootAddr = FirstSectorofCluster * BPB_BytsPerSec;
+		
+		FAT = BPB_BytsPerSec * BPB_ResvdSectCnt;
+		
+		System.out.println("BPB_RootEntCnt:  " + BPB_RootEntCnt);
+		System.out.println("BPB_BytsPerSec:  " + BPB_BytsPerSec);
+		System.out.println("BPB_ResvdSectCnt:  " + BPB_ResvdSectCnt);
+		System.out.println("BPB_NumFATs:  " + BPB_NumFATs);
+		System.out.println("FATsz:  " + FATsz);
+		System.out.println("RootDirSectors:  " + RootDirSectors);
+		System.out.println("BPB_RootClus:  " + BPB_RootClus);
+		System.out.println("BPB_SecPerClus:  " + BPB_SecPerClus);
+		System.out.println("FirstDataSector:  " + FirstDataSector);
+		System.out.println("FirstSectorofCluster: " + FirstSectorofCluster);
+		System.out.println("TotSec: " + TotSec);
+		System.out.println("Datasec: " + DataSec);
+		System.out.println("CountofClusters: " + CountofClusters);
+		System.out.println("ThisFATSecNum: " + ThisFATSecNum);
+		System.out.println("ThisFATEntOffset: " + ThisFATEntOffset);
+		System.out.println("FAT: " + FAT);
 
+		System.out.println(disk[39]);
+		System.out.println(disk[38]);
+		System.out.println(disk[37]);
+		System.out.println(disk[36]);
+		
+		for(int i = rootAddr; i < rootAddr + 250; i ++){
+			System.out.printf("byte num: %d  hex: %x\n", i, disk[i]);
+			System.out.println("                                    char:  " + (char)disk[i]);
+		}
 		/* Parse args and open our image file */
 
 		/* Parse boot sector and get information */
@@ -143,8 +197,8 @@ public class Fat32_reader {
 	
 	static void ls(){
 		System.out.println(rootAddr);
-		for(int i = 0; i < 1224; i ++){
-			System.out.printf("byte number: %d   %x\n",  i, disk[i]);
+		for(int i = 0; i < 124; i ++){
+			System.out.println("byte number: " + i + "    " + (char) disk[i]);
 		}
 		
 		/*
@@ -174,4 +228,17 @@ public class Fat32_reader {
 
 		System.out.println("total bytes  "  + disk.length);
 	}
+	
+	
+	void parseDir(){
+		
+		  go to 32nd byte for first ebtry
+		  if byte 11 == 0x0F{
+		  	read these 32 bytes as long directory
+		  	and attach it to the nest 32 bytes
+		  	}
+		  else if()
+		 
+	}
+	
 }
