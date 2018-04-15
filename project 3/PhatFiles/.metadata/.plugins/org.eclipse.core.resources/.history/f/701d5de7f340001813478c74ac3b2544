@@ -149,8 +149,6 @@ public class Fat32_reader {
 			case "stat":
 				System.out.println("Going to stat!\n");
 				// add root file
-				//if File name does not exsist print out an error
-				// otherwise print out stuff
 				stat(root);
 				break;
 				
@@ -280,7 +278,6 @@ public class Fat32_reader {
 		System.out.println("Is an OS:   " +  dir.ATTR_Sys);
 		System.out.println("Is Directory:   " +  dir.isDirectory);
 		System.out.println("Has been modified:   " +  dir.modified);
-		System.out.println();
 		System.out.println("First cluster Number:   " +  dir.clusterNum);
 		
 		

@@ -2,7 +2,7 @@ package sectorWork;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-//import java.io.File;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +20,7 @@ public class Fat32_reader {
 	
 	public static void main(String[] args){
 		char[] cmdLine;
-		//MyFile diskMyFile = new MyFile("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
+		//File diskFile = new File("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
 		Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
 		//Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
 		try {
@@ -38,8 +38,8 @@ public class Fat32_reader {
 		int BPB_RootClus = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
 		rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
 		
-		//MyFile directory = new MyFile("./");
-		//System.out.println(directory.getAbsolutePath());
+		File directory = new File("./");
+		System.out.println(directory.getAbsolutePath());
 		
 		int BPB_ResvdSectCnt = (disk[15] & 0x000000FF) << 8 | (disk[14] & 0x000000FF);
 		int BPB_NumFATs = disk[16];
@@ -146,13 +146,6 @@ public class Fat32_reader {
 				System.out.println("Going to ls!\n");
 				ls();
 				break;
-			case "stat":
-				System.out.println("Going to stat!\n");
-				// add root file
-				//if File name does not exsist print out an error
-				// otherwise print out stuff
-				stat(root);
-				break;
 				
 			case "read":
 				System.out.println("Going to read!\n");
@@ -251,10 +244,10 @@ public class Fat32_reader {
 	}
 	
 	
-	private ArrayList<MyFile> parseDir(int addr){
+	private ArrayList<File> parseDir(int addr){
 		boolean EOC = false;
 		
-		ArrayList<MyFile> children = new ArrayList<>();
+		ArrayList<File> children = new ArrayList<>();
 		
 		for(int i = addr;!EOC; i += 32){
 			if(disk[addr + 11] == 0x0F){
@@ -272,18 +265,8 @@ public class Fat32_reader {
 		return children;
 		
 	}
-	private void stat(MyFile dir){
-		System.out.println("Size of File:   " +  dir.fileSize);
-		System.out.println("Attributes of File:   ");	
-		System.out.println("Read only:   " +  dir.readOnly);
-		System.out.println("Is Hidden:   " +  dir.hidden);
-		System.out.println("Is an OS:   " +  dir.ATTR_Sys);
-		System.out.println("Is Directory:   " +  dir.isDirectory);
-		System.out.println("Has been modified:   " +  dir.modified);
-		System.out.println();
-		System.out.println("First cluster Number:   " +  dir.clusterNum);
-		
-		
-		}
+	private void stat(File dir){
+		System.out.println(dir.fileSize);
+	}
 	
 }

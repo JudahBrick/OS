@@ -2,9 +2,9 @@ package sectorWork;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-//import java.io.File;
+import java.io.MyFile;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.file.MyFiles;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -24,7 +24,7 @@ public class Fat32_reader {
 		Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
 		//Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
 		try {
-			disk = Files.readAllBytes(diskPath);
+			disk = MyFiles.readAllBytes(diskPath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,8 +38,8 @@ public class Fat32_reader {
 		int BPB_RootClus = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
 		rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
 		
-		//MyFile directory = new MyFile("./");
-		//System.out.println(directory.getAbsolutePath());
+		MyFile directory = new MyFile("./");
+		System.out.println(directory.getAbsolutePath());
 		
 		int BPB_ResvdSectCnt = (disk[15] & 0x000000FF) << 8 | (disk[14] & 0x000000FF);
 		int BPB_NumFATs = disk[16];
@@ -145,13 +145,6 @@ public class Fat32_reader {
 			case "ls":
 				System.out.println("Going to ls!\n");
 				ls();
-				break;
-			case "stat":
-				System.out.println("Going to stat!\n");
-				// add root file
-				//if File name does not exsist print out an error
-				// otherwise print out stuff
-				stat(root);
 				break;
 				
 			case "read":
@@ -273,17 +266,7 @@ public class Fat32_reader {
 		
 	}
 	private void stat(MyFile dir){
-		System.out.println("Size of File:   " +  dir.fileSize);
-		System.out.println("Attributes of File:   ");	
-		System.out.println("Read only:   " +  dir.readOnly);
-		System.out.println("Is Hidden:   " +  dir.hidden);
-		System.out.println("Is an OS:   " +  dir.ATTR_Sys);
-		System.out.println("Is Directory:   " +  dir.isDirectory);
-		System.out.println("Has been modified:   " +  dir.modified);
-		System.out.println();
-		System.out.println("First cluster Number:   " +  dir.clusterNum);
-		
-		
-		}
+		System.out.println(dir.fileSize);
+	}
 	
 }
