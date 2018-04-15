@@ -1,5 +1,6 @@
 package sectorWork;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
@@ -230,18 +231,22 @@ public class Fat32_reader {
 	}
 	
 	
-	void parseDir(int addr){
+	private ArrayList<File> parseDir(int addr){
 		boolean EOC = false;
+		
+		ArrayList<File> children = new ArrayList<>();
 		
 		for(int i = addr;!EOC; i += 32){
 			if(disk[addr + 11] == 0x0F){
 				continue;
 			}
-			else if(disk[addr + 11] == 0x0F){ // wtv it is we need to check for directror
-				
+			else if(disk[addr + 11] == 0x0F){ // wtv it is we need to check for directroy
+				//make file
+				//set file.children = parseDir(int addr)
 			}
 			else if(disk[addr + 11] == 0x01){ // wtv it is we need to check for file
-				
+				//make file
+				//set file.children = parseDir(int addr)
 			}
 		}
 		
