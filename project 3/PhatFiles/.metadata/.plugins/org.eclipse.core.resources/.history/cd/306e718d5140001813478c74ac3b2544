@@ -246,11 +246,17 @@ public class Fat32_reader {
 			}
 			else if(disk[addr + 11] == 0x01){ // wtv it is we need to check for file
 				//make file
-				// add this file to the children
+				//set file.children = parseDir(int addr)
 			}
 		}
-		return children;
 		
+		  go to 32nd byte for first entry
+		  if byte 11 == 0x0F{
+		  	read these 32 bytes as long directory
+		  	and attach it to the nest 32 bytes
+		  	}
+		  else if()
+		 
 	}
 	
 }
