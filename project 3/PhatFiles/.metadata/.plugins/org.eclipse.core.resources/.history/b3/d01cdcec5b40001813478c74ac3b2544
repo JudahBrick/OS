@@ -2,7 +2,7 @@ package sectorWork;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-//import java.io.File;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +17,6 @@ public class Fat32_reader {
 	static int BPB_SecPerClus;
 	static int rootAddr;
 	static int FAT;
-	File root;
 	
 	public static void main(String[] args){
 		char[] cmdLine;
@@ -37,10 +36,10 @@ public class Fat32_reader {
 		BPB_SecPerClus = disk[13];
 		
 		int BPB_RootClus = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
-		//rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
+		rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
 		
-		//File directory = new File("./");
-		//System.out.println(directory.getAbsolutePath());
+		File directory = new File("./");
+		System.out.println(directory.getAbsolutePath());
 		
 		int BPB_ResvdSectCnt = (disk[15] & 0x000000FF) << 8 | (disk[14] & 0x000000FF);
 		int BPB_NumFATs = disk[16];
@@ -69,11 +68,6 @@ public class Fat32_reader {
 		rootAddr = FirstSectorofCluster * BPB_BytsPerSec;
 		
 		FAT = BPB_BytsPerSec * BPB_ResvdSectCnt;
-		
-		byte[] rootDirEntry = getDirEntry(rootAddr);
-		root = new File(rootDirEntry);
-		root.children = parseDir(rootAddr + 32);
-		
 		
 		System.out.println("BPB_RootEntCnt:  " + BPB_RootEntCnt);
 		System.out.println("BPB_BytsPerSec:  " + BPB_BytsPerSec);
@@ -236,18 +230,9 @@ public class Fat32_reader {
 		System.out.println("total bytes  "  + disk.length);
 	}
 	
-	//need to make the root file before we call this method
-	// and then root.children = parseDir(rootAddr + 32);
 	
-	// this address should be the address of the first entry and not the dirEntry
-	private ArrayList<File> parseDir(int addr){  
+	private ArrayList<File> parseDir(int addr){
 		boolean EOC = false;
-		
-		byte[] dirEntry = getDirEntry(addr);
-		if(dirEntry == null){
-			return null;
-		}
-		File myFile = new File(dirEntry);
 		
 		ArrayList<File> children = new ArrayList<>();
 		
@@ -255,30 +240,17 @@ public class Fat32_reader {
 			if(disk[addr + 11] == 0x0F){
 				continue;
 			}
-			else if(myFile.isDirectory()){ 
-				myFile.setChildren = parseDir(myFile.addr + 32);//address here means the address of the actual directory not dirEntry
+			else if(disk[addr + 11] == 0x0F){ // wtv it is we need to check for directroy
+				//make file
+				//set file.children = parseDir(int addr)
 			}
-			else if(myFile.isFile()){ 
-				children.add(myFile);
+			else if(disk[addr + 11] == 0x01){ // wtv it is we need to check for file
+				//make file
+				// add this file to the children
 			}
 		}
 		return children;
 		
-	}
-	
-	private static byte[] getDirEntry(int addr){
-		byte[] dirEntry = new byte[32];
-		int counter = 0;
-		for(int i = addr; i < addr + 32; i++){
-			dirEntry[counter] = disk[i];
-			
-			// this would only be the case if there are no more files/dirs
-			if(dirEntry[0] == 0 || dirEntry[0] == 0xE5){
-				return null;
-			}
-			counter++;
-		}
-		return dirEntry;
 	}
 	
 }

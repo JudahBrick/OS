@@ -67,13 +67,11 @@ public class Fat32_reader {
 		int ThisFATEntOffset = FATOffset % BPB_BytsPerSec;
 
 		rootAddr = FirstSectorofCluster * BPB_BytsPerSec;
-		
-		FAT = BPB_BytsPerSec * BPB_ResvdSectCnt;
-		
 		byte[] rootDirEntry = getDirEntry(rootAddr);
 		root = new File(rootDirEntry);
 		root.children = parseDir(rootAddr + 32);
 		
+		FAT = BPB_BytsPerSec * BPB_ResvdSectCnt;
 		
 		System.out.println("BPB_RootEntCnt:  " + BPB_RootEntCnt);
 		System.out.println("BPB_BytsPerSec:  " + BPB_BytsPerSec);
@@ -266,7 +264,7 @@ public class Fat32_reader {
 		
 	}
 	
-	private static byte[] getDirEntry(int addr){
+	private byte[] getDirEntry(int addr){
 		byte[] dirEntry = new byte[32];
 		int counter = 0;
 		for(int i = addr; i < addr + 32; i++){
