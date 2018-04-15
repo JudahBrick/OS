@@ -231,6 +231,19 @@ public class Fat32_reader {
 	}
 	
 	
+	
+	//for a 4 byte sequence 0xABCD
+	//1st byte is A second byte is B.....
+	private int fourBytesToInt(int first, int second, int third, int fourth)
+	{
+		return ((disk[first] << 24) | ((disk[second] & 0x000000FF) << 16)  | ((disk[third] & 0x000000FF) << 8 ) | (disk[fourth] & 0x000000FF));
+	}
+	private int twoBytesToInt(int first, int second)
+	{
+		return (((disk[first] & 0x000000FF) << 8 ) | (disk[second] & 0x000000FF));
+	}
+	
+	
 	private ArrayList<File> parseDir(int addr){
 		boolean EOC = false;
 		
