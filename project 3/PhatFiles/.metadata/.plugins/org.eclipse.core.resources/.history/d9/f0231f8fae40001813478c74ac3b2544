@@ -31,10 +31,6 @@ public class File {
 		{
 			isDirectory = true;
 		}
-		
-		clusterNum = fourBytesToInt(21, 20, 27, 26);
-		fileSize = fourBytesToInt(31, 30, 29, 28);
-		address = getAddress();
 	}
 	
 	
@@ -49,15 +45,6 @@ public class File {
 		String toReturn = new String(toString);
 		return toReturn;
 	}
-	
-	//check again later
-	private int getAddress(){
-		int rtn = ((Fat32_reader.BPB_BytsPerSec * Fat32_reader.BPB_SecPerClus) * (clusterNum - 2) ) 
-				+ Fat32_reader.rootAddr;
-		return rtn;
-	}
-	
-	
 
 
 	//endian helper methods to cast to ints 

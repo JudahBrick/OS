@@ -14,7 +14,6 @@ public class File {
 	public int fileSize; 
 	public Byte[] entry;
 	public int address;
-	public int clusterNum;
 	
 	
 	
@@ -22,19 +21,15 @@ public class File {
 		children =  new ArrayList<File>();
 		this.entry = entry;
 		name = byteToString(0, 10);
-		Byte cmp11 = (byte) (entry[11] & 0x10);
-		if(cmp11 == (0x0))
-		{
-			isDirectory = false;
-		}
-		else
+		Byte cmp11 = new Byte("10");
+		if(entry[11].equals(cmp11))
 		{
 			isDirectory = true;
 		}
-		
-		clusterNum = fourBytesToInt(21, 20, 27, 26);
-		fileSize = fourBytesToInt(31, 30, 29, 28);
-		address = getAddress();
+		else
+		{
+			isDirectory = false;
+		}
 	}
 	
 	
@@ -49,15 +44,6 @@ public class File {
 		String toReturn = new String(toString);
 		return toReturn;
 	}
-	
-	//check again later
-	private int getAddress(){
-		int rtn = ((Fat32_reader.BPB_BytsPerSec * Fat32_reader.BPB_SecPerClus) * (clusterNum - 2) ) 
-				+ Fat32_reader.rootAddr;
-		return rtn;
-	}
-	
-	
 
 
 	//endian helper methods to cast to ints 

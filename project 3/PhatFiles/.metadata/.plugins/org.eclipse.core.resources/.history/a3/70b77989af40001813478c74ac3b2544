@@ -34,7 +34,6 @@ public class File {
 		
 		clusterNum = fourBytesToInt(21, 20, 27, 26);
 		fileSize = fourBytesToInt(31, 30, 29, 28);
-		address = getAddress();
 	}
 	
 	
