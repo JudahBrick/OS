@@ -17,6 +17,7 @@ public class Fat32_reader {
 	static int BPB_SecPerClus;
 	static int rootAddr;
 	static int FAT;
+	static MyFile root;
 	
 	public static void main(String[] args){
 		char[] cmdLine;
@@ -36,7 +37,7 @@ public class Fat32_reader {
 		BPB_SecPerClus = disk[13];
 		
 		int BPB_RootClus = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
-		rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
+		//rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
 		
 		//MyFile directory = new MyFile("./");
 		//System.out.println(directory.getAbsolutePath());
@@ -68,6 +69,13 @@ public class Fat32_reader {
 		rootAddr = FirstSectorofCluster * BPB_BytsPerSec;
 		
 		FAT = BPB_BytsPerSec * BPB_ResvdSectCnt;
+
+
+		byte[] rootDirEntry = getDirEntry(rootAddr);
+		root = new MyFile(rootDirEntry);
+		stat(root);
+
+		root.children = parseDir(rootAddr + 32);
 		
 		System.out.println("BPB_RootEntCnt:  " + BPB_RootEntCnt);
 		System.out.println("BPB_BytsPerSec:  " + BPB_BytsPerSec);
@@ -91,10 +99,7 @@ public class Fat32_reader {
 		System.out.println(disk[37]);
 		System.out.println(disk[36]);
 		
-		for(int i = rootAddr; i < rootAddr + 250; i ++){
-			System.out.printf("byte num: %d  hex: %x\n", i, disk[i]);
-			System.out.println("                                    char:  " + (char)disk[i]);
-		}
+		
 		/* Parse args and open our image file */
 
 		/* Parse boot sector and get information */
@@ -146,6 +151,7 @@ public class Fat32_reader {
 				System.out.println("Going to ls!\n");
 				ls();
 				break;
+				
 			case "stat":
 				System.out.println("Going to stat!\n");
 				// add root file
@@ -204,37 +210,10 @@ public class Fat32_reader {
 	}
 	
 	static void ls(){
-		System.out.println(rootAddr);
-		for(int i = 0; i < 124; i ++){
-			System.out.println("byte number: " + i + "    " + (char) disk[i]);
+		for(int i = 0; i < root.children.size(); i++){
+			MyFile crnt = root.children.get(i);
+			System.out.println(crnt.name);
 		}
-		
-		/*
-		 * Results
-		 * byte number: 71   43
-			byte number: 72   48
-			byte number: 73   55
-			byte number: 74   43
-			byte number: 75   4b
-			byte number: 76   4c
-			byte number: 77   45
-			byte number: 78   53
-			byte number: 79   20
-			byte number: 80   20
-			byte number: 81   20
-		 */
-		System.out.println(disk[rootAddr]);
-		System.out.println((char)disk[rootAddr + 1]);
-		System.out.println((char)disk[rootAddr + 2]);
-		System.out.println((char)disk[rootAddr + 3]);
-		System.out.println((char)disk[rootAddr+  4]);
-		System.out.println((char)disk[rootAddr + 5]);
-		System.out.println((char)disk[rootAddr + 6]);
-		System.out.println((char)disk[rootAddr + 7]);
-		
-		
-
-		System.out.println("total bytes  "  + disk.length);
 	}
 	
 	
@@ -251,35 +230,61 @@ public class Fat32_reader {
 	}
 	
 	
-	private ArrayList<MyFile> parseDir(int addr){
-		boolean EOC = false;
+	//need to make the root file before we call this method
+		// and then root.children = parseDir(rootAddr + 32);
 		
-		ArrayList<MyFile> children = new ArrayList<>();
-		
-		for(int i = addr;!EOC; i += 32){
-			if(disk[addr + 11] == 0x0F){
-				continue;
+		// this address should be the address of the first entry and not the dirEntry
+		private static ArrayList<MyFile> parseDir(int addr){  
+			boolean EOC = false;
+			
+			ArrayList<MyFile> children = new ArrayList<>();			
+			for(int i = addr;!EOC; i += 32){
+				
+				byte[] dirEntry = getDirEntry(i);
+				if(dirEntry == null){
+					EOC = true;
+					break;
+				}	
+
+				MyFile myFile = new MyFile(dirEntry);
+				//System.out.println("we got to here  " +  i);
+				if(myFile.longDir){
+					continue;
+				}
+				//else if(myFile.isDirectory){ 
+				//	myFile.children = parseDir(myFile.address + 32);//address here means the address of the actual directory not dirEntry
+				//}
+				else { 
+					children.add(myFile);
+				}
 			}
-			else if(disk[addr + 11] == 0x0F){ // wtv it is we need to check for directroy
-				//make file
-				//set file.children = parseDir(int addr)
-			}
-			else if(disk[addr + 11] == 0x01){ // wtv it is we need to check for file
-				//make file
-				// add this file to the children
-			}
+			return children;
+			
 		}
-		return children;
 		
-	}
-	private void stat(MyFile dir){
+		private static byte[] getDirEntry(int addr){
+			byte[] dirEntry = new byte[32];
+			int counter = 0;
+			for(int i = addr; i < addr + 32; i++){
+				dirEntry[counter] = disk[i];
+				
+				// this would only be the case if there are no more files/dirs
+				if(dirEntry[0] == 0 || dirEntry[0] == 0xE5){
+					return null;
+				}
+				counter++;
+			}
+			return dirEntry;
+		}
+	private static void stat(MyFile dir){
+		System.out.println("Name of File:   " +  dir.name);
 		System.out.println("Size of File:   " +  dir.fileSize);
 		System.out.println("Attributes of File:   ");	
-		System.out.println("Read only:   " +  dir.readOnly);
-		System.out.println("Is Hidden:   " +  dir.hidden);
-		System.out.println("Is an OS:   " +  dir.ATTR_Sys);
-		System.out.println("Is Directory:   " +  dir.isDirectory);
-		System.out.println("Has been modified:   " +  dir.modified);
+		System.out.println("         Read only:   " +  dir.readOnly);
+		System.out.println("         Is Hidden:   " +  dir.hidden);
+		System.out.println("         Is an OS:   " +  dir.ATTR_Sys);
+		System.out.println("         Is Directory:   " +  dir.isDirectory);
+		System.out.println("         Has been modified:   " +  dir.modified);
 		System.out.println();
 		System.out.println("First cluster Number:   " +  dir.clusterNum);
 		

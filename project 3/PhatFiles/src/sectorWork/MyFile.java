@@ -12,48 +12,57 @@ public class MyFile {
 	public boolean ATTR_Sys;
 	public boolean ATTR_VOLID;
 	public boolean hidden;
+	public boolean longDir = false;
 	
 
 	
-	public ArrayList<File> children;
+	public ArrayList<MyFile> children;
 	public String name;
 	public ArrayList<Character> text;
 	public int fileSize; 
-	public Byte[] entry;
+	public byte[] entry;
 	public int address;
 	public int clusterNum;
-	public File parent;
+	public MyFile parent;
 	
 	
 	
 	
-	public File(Byte[] entry){
-		children =  new ArrayList<File>();
+	public MyFile(byte[] entry){
+		if(entry[11] == 0x0F){
+			longDir = true;
+		}
+		children =  new ArrayList<MyFile>();
 		this.entry = entry;
 		name = byteToString(0, 10);
 		
-		isDirectory = parseATTR(entry[11], 0x10);
-		isFile = !isDirectory;
-		readOnly = parseATTR(entry[11], 0x01);
-		hidden = parseATTR(entry[11], 0x02);
-		ATTR_Sys = parseATTR(entry[11], 0x04);
-		modified = parseATTR(entry[11], 0x20);
-		ATTR_VOLID = parseATTR(entry[11], 0x08);
+		if(ATTR_VOLID = parseATTR(entry[11] & 0x08)){
+			isDirectory = true;
+			isFile = false;
+		}
+		else{
+			isDirectory = parseATTR(entry[11] & 0x10);
+			isFile = !isDirectory;
+		}
+		readOnly = parseATTR(entry[11] &  0x01);
+		hidden = parseATTR(entry[11] & 0x02);
+		ATTR_Sys = parseATTR(entry[11] & 0x04);
+		modified = parseATTR(entry[11] & 0x20);
+
 		
 		clusterNum = fourBytesToInt(21, 20, 27, 26);
 		fileSize = fourBytesToInt(31, 30, 29, 28);
 		address = getAddress();
 	}
 	
-	private boolean parseATTR(byte myByte, int num){
-		Byte cmp11 = (byte) (myByte & num);
-		if(cmp11 == (0x0))
-		{
-			return false;
-		}
-		else
-		{
+	private boolean parseATTR(int num){
+		//Byte cmp11 = (byte) (myByte & 0x num);
+		//System.out.println(num);
+		if(num != 0){
 			return true;
+		}
+		else{
+			return false;
 		}
 		
 	}
