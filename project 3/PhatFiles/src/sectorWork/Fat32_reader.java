@@ -2,6 +2,7 @@ package sectorWork;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
 //import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,8 +23,10 @@ public class Fat32_reader {
 	public static void main(String[] args){
 		char[] cmdLine;
 		//MyFile diskMyFile = new MyFile("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		//Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
+		//Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
+		String filename = new File ("").getAbsolutePath();
+		//System.out.println(filename);
+		Path diskPath = Paths.get(filename + "/src/sectorWork/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
