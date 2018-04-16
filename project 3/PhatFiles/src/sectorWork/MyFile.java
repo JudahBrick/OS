@@ -13,6 +13,7 @@ public class MyFile {
 	public boolean ATTR_VOLID;
 	public boolean hidden;
 	public boolean longDir = false;
+	public String Attr_Type;
 	
 
 	
@@ -48,7 +49,25 @@ public class MyFile {
 		hidden = parseATTR(entry[11] & 0x02);
 		ATTR_Sys = parseATTR(entry[11] & 0x04);
 		modified = parseATTR(entry[11] & 0x20);
-
+		if(parseATTR(entry[11] &  0x01))
+		{
+			Attr_Type = "ATTR-READ_ONLY";
+		}else if(parseATTR(entry[11] & 0x02))
+		{
+			Attr_Type = "ATTR-HIDDEN";
+		}else if(parseATTR(entry[11] & 0x04))
+		{
+			Attr_Type = "ATTR-SYSTEM";
+		}else if(parseATTR(entry[11] & 0x08))
+		{
+			Attr_Type = "ATTR-VOLUME_ID";
+		}else if(parseATTR(entry[11] & 0x10))
+		{
+			Attr_Type = "ATTR-DIRECTORY";
+		}else if(parseATTR(entry[11] & 0x20))
+		{
+			Attr_Type = "ATTR-ARCHIVE";
+		}
 		
 		clusterNum = fourBytesToInt(21, 20, 27, 26);
 		fileSize = fourBytesToInt(31, 30, 29, 28);
