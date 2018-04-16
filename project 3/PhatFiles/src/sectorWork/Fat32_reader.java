@@ -26,7 +26,8 @@ public class Fat32_reader {
 		//Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
 		String filename = new File ("").getAbsolutePath();
 		//System.out.println(filename);
-		Path diskPath = Paths.get(filename + "/src/sectorWork/fat32.img");
+		///src
+		Path diskPath = Paths.get(filename + "/sectorWork/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
