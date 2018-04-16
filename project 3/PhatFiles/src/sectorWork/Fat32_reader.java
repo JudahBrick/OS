@@ -22,8 +22,8 @@ public class Fat32_reader {
 	public static void main(String[] args){
 		char[] cmdLine;
 		//MyFile diskMyFile = new MyFile("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		//Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
-		Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
+		Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
+		//Path diskPath = Paths.get("/Users/jacobsaks/Documents/YU/2018Spring/Operating Systems/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
@@ -214,7 +214,10 @@ public class Fat32_reader {
 	static void ls(){
 		for(int i = 0; i < root.children.size(); i++){
 			MyFile crnt = root.children.get(i);
-			System.out.println(crnt.name);
+			if(!crnt.hidden){
+				System.out.println(crnt.name);
+
+			}
 		}
 	}
 	
@@ -279,20 +282,9 @@ public class Fat32_reader {
 			return dirEntry;
 		}
 	private static void stat(String filename){
-		for(int i = 0; i < root.children.size(); i++)
-		{
-			if(filename.equals(root.children.get(i).name.toString()))
-			{
-				System.out.println("Name of File:   " +  filename);
-				System.out.println("Size of File:   " +  root.children.get(i).fileSize);
-				System.out.println("Attributes: " + root.children.get(i).Attr_Type);	
-				System.out.println();
-				System.out.println("First cluster Number:   " +  root.children.get(i).clusterNum);
-				return;
-			}
-			
-		}if(filename.equals(root.name))
-		{
+		System.out.println(root.name);
+		System.out.println(root.name.length());	
+		if(filename.equalsIgnoreCase(root.name)){
 			
 			{
 				System.out.println("Name of File:   " +  filename);
@@ -303,6 +295,21 @@ public class Fat32_reader {
 				return;
 			}
 		}
+		
+		for(int i = 0; i < root.children.size(); i++)
+		{
+			if(filename.equalsIgnoreCase(root.children.get(i).name.toString()))
+			{
+				System.out.println("Name of File:   " +  filename);
+				System.out.println("Size of File:   " +  root.children.get(i).fileSize);
+				System.out.println("Attributes: " + root.children.get(i).Attr_Type);	
+				System.out.println();
+				System.out.println("First cluster Number:   " +  root.children.get(i).clusterNum);
+				return;
+			}
+			
+		}
+
 		System.out.println("Error: file/directory does not exist");
 		//System.out.println("         Read only:   " +  dir.readOnly);
 		//System.out.println("         Is Hidden:   " +  dir.hidden);

@@ -1,6 +1,7 @@
 package sectorWork;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MyFile {	
 	
@@ -35,7 +36,7 @@ public class MyFile {
 		}
 		children =  new ArrayList<MyFile>();
 		this.entry = entry;
-		name = byteToString(0, 10);
+		name = byteToString(0, 11);
 		
 		if(ATTR_VOLID = parseATTR(entry[11] & 0x08)){
 			isDirectory = true;
@@ -94,6 +95,14 @@ public class MyFile {
 			toString[i] = entry[i];
 		}
 		String toReturn = new String(toString);
+
+		Scanner  scan = new Scanner(toReturn);
+		String line = scan.nextLine();
+		String[] words = line.split(" "); 
+		String rtn = "";
+		for(int i = 0; i < words.length; i++){
+			rtn = rtn + words[i];
+		}
 		return toReturn;
 	}
 	
