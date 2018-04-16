@@ -91,7 +91,7 @@ public class MyFile {
 	private String byteToString(int begIndex, int endIndex) {
 		byte[] toString = new byte[endIndex- begIndex];
 		boolean needDot = false;
-		if(entry[endIndex] > 32 && entry[endIndex] < 126){
+		if(entry[endIndex] != 0x20){
 			needDot = true;
 		}
 		for(int i = 0; i< endIndex - begIndex; i++ )

@@ -91,35 +91,28 @@ public class MyFile {
 	private String byteToString(int begIndex, int endIndex) {
 		byte[] toString = new byte[endIndex- begIndex];
 		boolean needDot = false;
-		if(entry[endIndex] > 32 && entry[endIndex] < 126){
+		if(entry[endIndex] != 0x20){
 			needDot = true;
 		}
 		for(int i = 0; i< endIndex - begIndex; i++ )
 		{
 			toString[i] = entry[i];
-			System.out.println(entry[i]);
 		}
 		
 		String toReturn = new String(toString);
 		toReturn = toReturn.replaceAll(" ", "");
-		System.out.println("toReturn:  " + toReturn + " length: " + toReturn.length() + " need dot: " + needDot);
 		if(needDot){
-			int length = toReturn.length();
-			char[] dotFix = new char[length + 1];
+			int length = toReturn.length()
+			char[] dotFix = new char[toReturn.length()];
 			char[] original = toReturn.toCharArray();
-			for(int i = 0; i <length -1; i ++){
+			for(int i = 0; i <toReturn.length() -1; i ++){
 				dotFix[i] = original[i];
 			}
-			System.out.println("dotFix:  " + dotFix.toString());
-			dotFix[length] = dotFix[length -1];
-			dotFix[length -1] = dotFix[length -2];
-			dotFix[length-2] = dotFix[length -3];
-			dotFix[length -3] = '.';
-			toReturn = new String(dotFix);
+			dotFix[toReturn.length()] = 
 		}
 		return toReturn;
 	}
-
+	
 	//check again later
 	private int getAddress(){
 		int rtn = ((Fat32_reader.BPB_BytsPerSec * Fat32_reader.BPB_SecPerClus) * (clusterNum - 2) ) 
