@@ -159,7 +159,7 @@ public class Fat32_reader {
 				// add root file
 				//if File name does not exsist print out an error
 				// otherwise print out stuff
-				stat(words[1]);// + words[2]);
+				stat(words[1] + words[2]);
 				break;
 				
 			case "read":
@@ -282,6 +282,8 @@ public class Fat32_reader {
 			return dirEntry;
 		}
 	private static void stat(String filename){
+		System.out.println(root.name);
+		System.out.println(root.name.length());	
 		if(filename.equalsIgnoreCase(root.name)){
 			
 			{

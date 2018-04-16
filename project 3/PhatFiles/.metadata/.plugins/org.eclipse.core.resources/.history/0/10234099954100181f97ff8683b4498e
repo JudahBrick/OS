@@ -95,7 +95,14 @@ public class MyFile {
 			toString[i] = entry[i];
 		}
 		String toReturn = new String(toString);
-		toReturn = toReturn.replaceAll(" ", "");
+
+		Scanner  scan = new Scanner(toReturn);
+		String line = scan.nextLine();
+		String[] words = line.split(" "); 
+		String rtn = "";
+		for(int i = 0; i < words.length; i++){
+			rtn = rtn + words[i];
+		}
 		return toReturn;
 	}
 	

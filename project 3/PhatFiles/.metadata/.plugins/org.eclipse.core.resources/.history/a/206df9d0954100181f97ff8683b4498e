@@ -282,6 +282,8 @@ public class Fat32_reader {
 			return dirEntry;
 		}
 	private static void stat(String filename){
+		System.out.println(root.name);
+		System.out.println(root.name.length());	
 		if(filename.equalsIgnoreCase(root.name)){
 			
 			{
