@@ -36,7 +36,7 @@ public class MyFile {
 		}
 		children =  new ArrayList<MyFile>();
 		this.entry = entry;
-		name = byteToString(0, 11);
+		name = byteToString();
 		
 		if(ATTR_VOLID = parseATTR(entry[11] & 0x08)){
 			isDirectory = true;
@@ -88,35 +88,27 @@ public class MyFile {
 	}
 	//takes two integers and returns a string of the bytes between those indexes
 	//used for the name of the file
-	private String byteToString(int begIndex, int endIndex) {
-		byte[] toString = new byte[endIndex- begIndex];
+	private String byteToString() {
+		byte[] toString = new byte[12];
 		boolean needDot = false;
-		if(entry[endIndex] > 32 && entry[endIndex] < 126){
+		if(entry[8] > 32 && entry[8] < 126){
 			needDot = true;
 		}
-		for(int i = 0; i< endIndex - begIndex; i++ )
+		
+		int stringCounter = 0;
+		for(int i = 0; i< 12; i++ )
 		{
-			toString[i] = entry[i];
-			System.out.println(entry[i]);
+			if(needDot && i == 8){
+				toString[i] = '.';
+				continue;
+			}
+			toString[i] = entry[stringCounter];
+			stringCounter++;
 		}
 		
 		String toReturn = new String(toString);
 		toReturn = toReturn.replaceAll(" ", "");
-		System.out.println("toReturn:  " + toReturn + " length: " + toReturn.length() + " need dot: " + needDot);
-		if(needDot){
-			int length = toReturn.length();
-			char[] dotFix = new char[length + 1];
-			char[] original = toReturn.toCharArray();
-			for(int i = 0; i <length -1; i ++){
-				dotFix[i] = original[i];
-			}
-			System.out.println("dotFix:  " + dotFix.toString());
-			dotFix[length] = dotFix[length -1];
-			dotFix[length -1] = dotFix[length -2];
-			dotFix[length-2] = dotFix[length -3];
-			dotFix[length -3] = '.';
-			toReturn = new String(dotFix);
-		}
+		
 		return toReturn;
 	}
 
