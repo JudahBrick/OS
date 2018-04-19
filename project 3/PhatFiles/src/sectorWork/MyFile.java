@@ -30,7 +30,8 @@ public class MyFile {
 	
 	
 	
-	public MyFile(byte[] entry){
+	public MyFile(byte[] entry, MyFile parent){
+		this.parent = parent;
 		if(entry[11] == 0x0F){
 			longDir = true;
 		}
@@ -100,6 +101,10 @@ public class MyFile {
 		{
 			if(needDot && i == 8){
 				toString[i] = '.';
+				continue;
+			}
+			else if(i == 8){
+				toString[i] =  ' ';
 				continue;
 			}
 			toString[i] = entry[stringCounter];

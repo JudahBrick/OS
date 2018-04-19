@@ -76,7 +76,7 @@ public class Fat32_reader {
 
 
 		byte[] rootDirEntry = getDirEntry(rootAddr);
-		root = new MyFile(rootDirEntry);
+		root = new MyFile(rootDirEntry, null);
 		//stat(root);
 
 		root.children = parseDir(rootAddr + 32);
@@ -138,28 +138,29 @@ public class Fat32_reader {
 				break;
 				
 			case "open":
-				System.out.println("Going to open!\n");
+				System.out.println("Going to open!");
 				break;
 				
 			case "close":
-				System.out.println("Going to close!\n");
+				System.out.println("Going to close!");
 				break;
 				
 			case "size":
-				System.out.println("Going to size!\n");
+				System.out.println("Going to size!");
 				break;
 				
 			case "cd":
-				System.out.println("Going to cd!\n");
+				System.out.println("Going to cd!" );
+				cd(words[1]);
 				break;
 				
 			case "ls":
-				System.out.println("Going to ls!\n");
+				System.out.println("Going to ls!");
 				ls();
 				break;
 				
 			case "stat":
-				System.out.println("Going to stat!\n");
+				System.out.println("Going to stat!");
 				// add root file
 				//if File name does not exsist print out an error
 				// otherwise print out stuff
@@ -255,8 +256,8 @@ public class Fat32_reader {
 					break;
 				}	
 
-				MyFile myFile = new MyFile(dirEntry);
-				//System.out.println("we got to here  " +  i);
+				MyFile myFile = new MyFile(dirEntry, root);
+				System.out.println("we got to here  " +  myFile.name);
 				if(myFile.longDir){
 					continue;
 				}
@@ -322,5 +323,37 @@ public class Fat32_reader {
 		
 		
 		}
+	
+	public static void cd(String fileName){
+		
+		if(fileName.equals("..")){
+			if(root.parent != null){
+				root = root.parent;
+				return;
+			}
+			else{
+				System.out.println("already in root directory");
+			}
+			
+		}
+
+		for(int i = 0; i < root.children.size(); i++){
+			MyFile child = root.children.get(i);
+			if(fileName.equalsIgnoreCase(child.name)){
+				if(child.isDirectory){
+					root = child;
+					System.out.println(root.name);
+
+				}
+				else{
+					System.out.println(fileName + " is not a directory");
+				}
+			}
+			
+		}
+		
+	}
+	
+	
 	
 }
