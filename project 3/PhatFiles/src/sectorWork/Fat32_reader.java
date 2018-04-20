@@ -27,8 +27,8 @@ public class Fat32_reader {
 		String filename = new File ("").getAbsolutePath();
 		System.out.println(filename);
 		///src
-		Path diskPath = Paths.get(filename + "/src/sectorWork/fat32.img");
-		//Path diskPath = Paths.get(filename + "/sectorWork/fat32.img");
+		//Path diskPath = Paths.get(filename + "/src/sectorWork/fat32.img");
+		Path diskPath = Paths.get(filename + "/sectorWork/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
@@ -80,7 +80,7 @@ public class Fat32_reader {
 		root = new MyFile(rootDirEntry, null);
 		//stat(root);
 
-		root.children = parseDir(rootAddr + 32);
+		root.children = parseRoot(rootAddr + 32);
 		MyFile sd = root;
 		int dfd = 8;
 		
@@ -245,7 +245,7 @@ public class Fat32_reader {
 		// and then root.children = parseDir(rootAddr + 32);
 		
 		// this address should be the address of the first entry and not the dirEntry
-		private static ArrayList<MyFile> parseDir(int addr){  
+		private static ArrayList<MyFile> parseRoot(int addr){  
 			boolean EOC = false;
 			
 			ArrayList<MyFile> children = new ArrayList<>();			
@@ -257,14 +257,57 @@ public class Fat32_reader {
 					break;
 				}	
 
-				MyFile myFile = new MyFile(dirEntry, root);
+				MyFile myFile = new MyFile(dirEntry, root);//
 				System.out.println("we got to here  " +  myFile.name);
 				if(myFile.longDir){
 					continue;
 				}
-				//else if(myFile.isDirectory){ 
-				//	myFile.children = parseDir(myFile.address + 32);//address here means the address of the actual directory not dirEntry
-				//}
+				else if(myFile.isDirectory){ 
+					myFile.children = parseDir(myFile);//address here means the address of the actual directory not dirEntry
+				}
+				else { 
+					//read data
+					children.add(myFile);
+				}
+			}
+			return children;
+			
+		}
+		
+		private static ArrayList<MyFile> parseDir(MyFile file){  
+			ArrayList<Integer> clusNums = getClusNums(file.clusterNum);
+			int nextClusToRead = 1;
+			boolean EOC = false;
+			
+			ArrayList<MyFile> children = new ArrayList<>();		
+			int addrStart = file.address + 64;
+			for(int i = 0;!EOC; i += 32){
+				
+				if(i == (BPB_BytsPerSec * BPB_SecPerClus) ){
+					i = 0;
+					int nextAddr = clusNums.get(nextClusToRead);
+					nextClusToRead++;
+					if(nextAddr == 0x0FFFFFFF){
+						break;
+					}
+					nextAddr = ((nextAddr-2) * (BPB_BytsPerSec * BPB_SecPerClus)) + rootAddr;
+					addrStart = nextAddr;
+				}
+				byte[] dirEntry = getDirEntry(addrStart + i);
+				if(dirEntry == null){
+					EOC = true;
+					break;
+				}	
+				
+
+				MyFile myFile = new MyFile(dirEntry, file);//
+				System.out.println("we got to here  " +  myFile.name);
+				if(myFile.longDir){
+					continue;
+				}
+				else if(myFile.isDirectory){ 
+					myFile.children = parseDir(myFile);//address here means the address of the actual directory not dirEntry
+				}
 				else { 
 					children.add(myFile);
 				}
@@ -272,6 +315,20 @@ public class Fat32_reader {
 			return children;
 			
 		}
+		private static ArrayList<Integer> getClusNums(int firstClus){
+			ArrayList<Integer> nums = new ArrayList<Integer>();
+			nums.add(firstClus);
+			int i = 1;
+			while(nums.get(i -1) != 0x0FFFFFFF){
+				int pastClus = nums.get(i -1);
+				int nextClus = (pastClus * 4) + FAT;
+				nextClus = fourBytesToInt(nextClus);
+				nums.add(nextClus);
+				i++;
+			}	
+			return nums;
+		}
+		
 		
 		private static byte[] getDirEntry(int addr){
 			byte[] dirEntry = new byte[32];
@@ -353,6 +410,13 @@ public class Fat32_reader {
 			
 		}
 		
+	}
+	
+	
+	private static int fourBytesToInt(int first)
+	{
+		return ((disk[first + 3] << 24) | ((disk[first + 2] & 0x000000FF) << 16)  | 
+				((disk[first + 1] & 0x000000FF) << 8 ) | (disk[first] & 0x000000FF));
 	}
 	
 	
