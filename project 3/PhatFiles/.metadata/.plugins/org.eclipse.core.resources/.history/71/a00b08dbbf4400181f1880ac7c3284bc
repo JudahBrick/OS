@@ -308,8 +308,8 @@ public class Fat32_reader {
 				}
 				else if(myFile.isDirectory){ 
 					System.out.println("we got to here  " +  myFile.name);
+					file.children.add(myFile);
 					myFile.children = parseDir(myFile);//address here means the address of the actual directory not dirEntry
-					children.add(myFile);
 				}
 				else { 
 					System.out.println("we got to here  " +  myFile.name);

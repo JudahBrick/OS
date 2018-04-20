@@ -81,8 +81,8 @@ public class Fat32_reader {
 		//stat(root);
 
 		root.children = parseRoot(rootAddr + 32);
-		//MyFile sd = root;
-		//int dfd = 8;
+		MyFile sd = root;
+		int dfd = 8;
 		
 		System.out.println("BPB_RootEntCnt:  " + BPB_RootEntCnt);
 		System.out.println("BPB_BytsPerSec:  " + BPB_BytsPerSec);
@@ -258,17 +258,15 @@ public class Fat32_reader {
 				}	
 
 				MyFile myFile = new MyFile(dirEntry, root);//
+				System.out.println("we got to here  " +  myFile.name);
 				if(myFile.longDir){
 					continue;
 				}
 				else if(myFile.isDirectory){ 
-					System.out.println("we got to here  " +  myFile.name);
 					myFile.children = parseDir(myFile);//address here means the address of the actual directory not dirEntry
-					children.add(myFile);
 				}
 				else { 
 					//read data
-					System.out.println("we got to here  " +  myFile.name);
 					children.add(myFile);
 				}
 			}
@@ -285,7 +283,7 @@ public class Fat32_reader {
 			int addrStart = file.address + 64;
 			for(int i = 0;!EOC; i += 32){
 				
-				if(i == (BPB_BytsPerSec * BPB_SecPerClus) || (i == 448 && nextClusToRead == 1)){
+				if(i == (BPB_BytsPerSec * BPB_SecPerClus) ){
 					i = 0;
 					int nextAddr = clusNums.get(nextClusToRead);
 					nextClusToRead++;
@@ -303,17 +301,16 @@ public class Fat32_reader {
 				
 
 				MyFile myFile = new MyFile(dirEntry, file);//
+				System.out.println("we got to here  " +  myFile.name);
 				if(myFile.longDir){
 					continue;
 				}
 				else if(myFile.isDirectory){ 
-					System.out.println("we got to here  " +  myFile.name);
+					file.children.add(myFile);
 					myFile.children = parseDir(myFile);//address here means the address of the actual directory not dirEntry
-					children.add(myFile);
 				}
 				else { 
-					System.out.println("we got to here  " +  myFile.name);
-					children.add(myFile);
+					file.children.add(myFile);
 				}
 			}
 			return children;
