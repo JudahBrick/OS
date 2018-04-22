@@ -27,8 +27,8 @@ public class Fat32_reader {
 		String filename = new File ("").getAbsolutePath();
 		System.out.println(filename);
 		///src
-		//Path diskPath = Paths.get(filename + "/src/sectorWork/fat32.img");
-		Path diskPath = Paths.get(filename + "/sectorWork/fat32.img");
+		Path diskPath = Paths.get(filename + "/src/sectorWork/fat32.img");
+		//Path diskPath = Paths.get(filename + "/sectorWork/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
@@ -323,7 +323,7 @@ public class Fat32_reader {
 			ArrayList<Integer> nums = new ArrayList<Integer>();
 			nums.add(firstClus);
 			int i = 1;
-			while(nums.get(i -1) != 0x0FFFFFFF){
+			while(nums.get(i -1) != 0x0FFFFFFF && nums.get(i -1) != 0x0FFFFFF8){
 				int pastClus = nums.get(i -1);
 				int nextClus = (pastClus * 4) + FAT;
 				nextClus = fourBytesToInt(nextClus);
