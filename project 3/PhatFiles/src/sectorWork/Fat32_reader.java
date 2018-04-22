@@ -19,6 +19,7 @@ public class Fat32_reader {
 	static int rootAddr;
 	static int FAT;
 	static MyFile root;
+	static String volumeID;
 	
 	public static void main(String[] args){
 		char[] cmdLine;
@@ -117,11 +118,12 @@ public class Fat32_reader {
 
 		/* Main loop.  You probably want to create a helper function
 	       for each command besides quit. */
-
+		volumeID = root.name;
+		
 		boolean cont = true;
 		while(cont) {
-			cmdLine = new char[MAX_CMD];
-			System.out.println("/]");
+			//cmdLine = new char[MAX_CMD];
+			System.out.println(root.name + " /]");
 			//fgets(cmd_line,MAX_CMD,stdin);
 			Scanner  scan = new Scanner(System.in);
 			String line = scan.nextLine();
@@ -148,8 +150,13 @@ public class Fat32_reader {
 				
 			case "size":
 				System.out.println("Going to size!");
+				size(words[1]);
 				break;
 				
+			case "volume":
+				System.out.println("Going to volume!");
+				System.out.println(volumeID);
+				break;
 			case "cd":
 				System.out.println("Going to cd!" );
 				cd(words[1]);
@@ -170,6 +177,7 @@ public class Fat32_reader {
 				
 			case "read":
 				System.out.println("Going to read!\n");
+				read(words[1], Integer.parseInt(words[2]), Integer.parseInt(words[3]));
 				break;
 				
 			case "quit":
@@ -262,13 +270,14 @@ public class Fat32_reader {
 					continue;
 				}
 				else if(myFile.isDirectory){ 
-					System.out.println("we got to here  " +  myFile.name);
+					//System.out.println("we got to here  " +  myFile.name);
 					myFile.children = parseDir(myFile);//address here means the address of the actual directory not dirEntry
 					children.add(myFile);
 				}
 				else { 
 					//read data
-					System.out.println("we got to here  " +  myFile.name);
+					//System.out.println("we got to here  " +  myFile.name);
+					
 					children.add(myFile);
 				}
 			}
@@ -285,7 +294,7 @@ public class Fat32_reader {
 			int addrStart = file.address + 64;
 			for(int i = 0;!EOC; i += 32){
 				
-				if(i == (BPB_BytsPerSec * BPB_SecPerClus) || (i == 448 && nextClusToRead == 1)){
+				if(i == (BPB_BytsPerSec * BPB_SecPerClus) || ((i == (BPB_BytsPerSec * BPB_SecPerClus) - 64) && nextClusToRead == 1)){
 					i = 0;
 					int nextAddr = clusNums.get(nextClusToRead);
 					nextClusToRead++;
@@ -387,14 +396,19 @@ public class Fat32_reader {
 		}
 	
 	public static void cd(String fileName){
+		if(fileName.equals(".")){
+			System.out.println("already in " + fileName +" directory");
+			return;
+		}
 		
-		if(fileName.equals("..")){
+		else if(fileName.equals("..")){
 			if(root.parent != null){
 				root = root.parent;
 				return;
 			}
 			else{
 				System.out.println("already in root directory");
+				return;
 			}
 			
 		}
@@ -405,14 +419,17 @@ public class Fat32_reader {
 				if(child.isDirectory){
 					root = child;
 					System.out.println(root.name);
+					return;
 
 				}
 				else{
 					System.out.println(fileName + " is not a directory");
+					return;
 				}
 			}
 			
 		}
+		System.out.println(fileName + " does not exist");
 		
 	}
 	
@@ -423,6 +440,54 @@ public class Fat32_reader {
 				((disk[first + 1] & 0x000000FF) << 8 ) | (disk[first] & 0x000000FF));
 	}
 	
+	private static void read(String fileNameToRead, int position, int numBytes){
+		MyFile fileToRead = null;
+		ArrayList<Character> file;
+		for(int i = 0; i < root.children.size(); i++)
+		{
+			if(fileNameToRead.equalsIgnoreCase(root.children.get(i).name))
+			{
+				fileToRead = root.children.get(i);
+				break;
+			}
+			
+		}
+		if(fileToRead != null){
+			file = fileToRead.text;
+		}
+		else{
+			System.out.println("That file does not exsist");
+			return;
+		}
+		
+		ArrayList<Character> fileToPrint = new ArrayList<>();
+		
+		for(int i = position; i <= position + numBytes || i < file.size(); i++){
+			System.out.print(file.get(i));
+		}
+		System.out.println("");	
+	}
 	
-	
+	private static void size(String fileName){
+		if(fileName.equalsIgnoreCase(root.name)){
+					
+					{
+						System.out.println("Size of File:   " +  root.fileSize);
+						return;
+					}
+		}
+				
+		for(int i = 0; i < root.children.size(); i++){
+				if(fileName.equalsIgnoreCase(root.children.get(i).name.toString())){
+					System.out.println("Size of File:   " +  root.children.get(i).fileSize);
+					return;
+				}
+					
+		}
+		
+				System.out.println("Error: file/directory does not exist");
+		
+	}
 }
+	
+

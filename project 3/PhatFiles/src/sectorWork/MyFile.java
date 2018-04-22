@@ -20,7 +20,7 @@ public class MyFile {
 	
 	public ArrayList<MyFile> children;
 	public String name;
-	public ArrayList<Character> text;
+	public ArrayList<Character> text =  new ArrayList<>();
 	public int fileSize; 
 	public byte[] entry;
 	public int address;
@@ -74,6 +74,9 @@ public class MyFile {
 		clusterNum = fourBytesToInt(21, 20, 27, 26);
 		fileSize = fourBytesToInt(31, 30, 29, 28);
 		address = getAddress();
+		if(isFile){
+			read();
+		}
 	}
 	
 	private boolean parseATTR(int num){
@@ -137,13 +140,49 @@ public class MyFile {
 		return (((entry[first] & 0x000000FF) << 8 ) | (entry[second] & 0x000000FF));
 	}
 	
-	public void main()
+	
+	
+	private ArrayList<Integer> getClusNums(){
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(clusterNum);
+		int i = 1;
+		while(nums.get(i -1) != 0x0FFFFFFF && nums.get(i -1) != 0x0FFFFFF8){
+			int pastClus = nums.get(i -1);
+			int nextClus = (pastClus * 4) + Fat32_reader.FAT;
+			nextClus = fourBytesToInt(nextClus);
+			nums.add(nextClus);
+			i++;
+		}	
+		return nums;
+	}
+	
+	private static int fourBytesToInt(int first)
 	{
-		byte sds = 0x4E;
-		Byte[] test = {0x46, 0x53, 0x49, 0x4E, 0x46, 0x4F,
-				0x20, 0x20,  0x54, 0x58, 0x54, 0x20, 0x00,
-				0x64, (byte) 0xBB, 0x36, (byte) 0x87, 0x44, (byte) 0x89, 0x4C,
-				0x00, 0x00, (byte) 0xBB, 0x36, (byte) 0x87, 0x44, 0x03,
-				0x00, 0x60, 0x01, 0x00, 0x00};
+		return ((Fat32_reader.disk[first + 3] << 24) | ((Fat32_reader.disk[first + 2] & 0x000000FF) << 16)  | 
+				((Fat32_reader.disk[first + 1] & 0x000000FF) << 8 ) | (Fat32_reader.disk[first] & 0x000000FF));
+	}
+	
+	private void read(){
+		ArrayList<Integer> clusNums = getClusNums();
+		
+		int nextClusToRead = 1;
+		boolean EOF = false;
+		
+		int addrStart = address;
+		for(int i = 0;!EOF; i ++){
+			
+			if(i == (Fat32_reader.BPB_BytsPerSec * Fat32_reader.BPB_SecPerClus)){
+				i = 0;
+				int nextAddr = clusNums.get(nextClusToRead);
+				nextClusToRead++;
+				if(nextAddr == 0x0FFFFFF8 || nextAddr == 0x0FFFFFFF){
+					break;
+				}
+				nextAddr = ((nextAddr-2) * (Fat32_reader.BPB_BytsPerSec * Fat32_reader.BPB_SecPerClus)) + Fat32_reader.rootAddr;
+				addrStart = nextAddr;
+			}
+			text.add((char) Fat32_reader.disk[addrStart + i]);
+
+		}
 	}
 }
