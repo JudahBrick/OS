@@ -5,6 +5,17 @@ Submission 1
 There may be an issue with the path name that we provided to give the fat32.img file to the program. 
 We used a relative path but for some very strange reason the relative path differed between our two computers. 
 
+Files and Directories 
+
+Fat32_reader.java
+	this file contains the code to parse the fat32 image file and then do all necessary commands to access information as required. 
+fat32.img
+	the FAT32 image file
+MyFile.java
+	this is the java class which represents a file or directory in the fat32 image. Each file/directory on the image is converted into a 
+	java object which contains all the information such as filename, file text, size and more... 
+MyTestClass.java
+	we didn't really use this	
 
 
 ls
@@ -14,7 +25,7 @@ stat
 	stat command works when the input string is the name of the file as given by the ls command as explained under ls. 
 
 
-to compile the program, one can use a Makeme file
+to compile the program, one can use a Makeme file or use javac *.java
 
 Programs
 
