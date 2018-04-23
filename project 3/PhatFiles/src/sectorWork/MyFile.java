@@ -20,7 +20,7 @@ public class MyFile {
 	
 	public ArrayList<MyFile> children;
 	public String name;
-	public ArrayList<Character> text =  new ArrayList<>();
+	public ArrayList<Character> text =  new ArrayList<>();//if this is a file then these are the bytes in the file
 	public int fileSize; 
 	public byte[] entry;
 	public int address;
@@ -80,8 +80,6 @@ public class MyFile {
 	}
 	
 	private boolean parseATTR(int num){
-		//Byte cmp11 = (byte) (myByte & 0x num);
-		//System.out.println(num);
 		if(num != 0){
 			return true;
 		}
@@ -90,6 +88,7 @@ public class MyFile {
 		}
 		
 	}
+	
 	//takes two integers and returns a string of the bytes between those indexes
 	//used for the name of the file
 	private String byteToString() {
@@ -120,7 +119,6 @@ public class MyFile {
 		return toReturn;
 	}
 
-	//check again later
 	private int getAddress(){
 		int rtn = ((Fat32_reader.BPB_BytsPerSec * Fat32_reader.BPB_SecPerClus) * (clusterNum - 2) ) 
 				+ Fat32_reader.rootAddr;

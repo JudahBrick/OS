@@ -22,7 +22,9 @@ public class Fat32_reader {
 	static String volumeID;
 	
 	public static void main(String[] args){
-		char[] cmdLine;
+		
+		/* Parse args and open our image file */
+
 		//MyFile diskMyFile = new MyFile("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
 		//Path diskPath = Paths.get("/Users/yehudabrick/COMPSCI/OS/project 3/fat32.img");
 		String filename = new File ("").getAbsolutePath();
@@ -33,7 +35,6 @@ public class Fat32_reader {
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -43,10 +44,7 @@ public class Fat32_reader {
 		BPB_SecPerClus = disk[13];
 		
 		int BPB_RootClus = ((disk[47] << 24) | (disk[46] << 16)  | (disk[45] << 8 ) | (disk[44]));
-		//rootAddr = 512;//((BPB_BytsPerSec * BPB_SecPerClus) * BPB_RootEntCnt);
-		
-		//MyFile directory = new MyFile("./");
-		//System.out.println(directory.getAbsolutePath());
+
 		
 		int BPB_ResvdSectCnt = (disk[15] & 0x000000FF) << 8 | (disk[14] & 0x000000FF);
 		int BPB_NumFATs = disk[16];
@@ -82,33 +80,8 @@ public class Fat32_reader {
 		//stat(root);
 
 		root.children = parseRoot(rootAddr + 32);
-		//MyFile sd = root;
-		//int dfd = 8;
-		
-		System.out.println("BPB_RootEntCnt:  " + BPB_RootEntCnt);
-		System.out.println("BPB_BytsPerSec:  " + BPB_BytsPerSec);
-		System.out.println("BPB_ResvdSectCnt:  " + BPB_ResvdSectCnt);
-		System.out.println("BPB_NumFATs:  " + BPB_NumFATs);
-		System.out.println("FATsz:  " + FATsz);
-		System.out.println("RootDirSectors:  " + RootDirSectors);
-		System.out.println("BPB_RootClus:  " + BPB_RootClus);
-		System.out.println("BPB_SecPerClus:  " + BPB_SecPerClus);
-		System.out.println("FirstDataSector:  " + FirstDataSector);
-		System.out.println("FirstSectorofCluster: " + FirstSectorofCluster);
-		System.out.println("TotSec: " + TotSec);
-		System.out.println("Datasec: " + DataSec);
-		System.out.println("CountofClusters: " + CountofClusters);
-		System.out.println("ThisFATSecNum: " + ThisFATSecNum);
-		System.out.println("ThisFATEntOffset: " + ThisFATEntOffset);
-		System.out.println("FAT: " + FAT);
 
-		System.out.println(disk[39]);
-		System.out.println(disk[38]);
-		System.out.println(disk[37]);
-		System.out.println(disk[36]);
 		
-		
-		/* Parse args and open our image file */
 
 		/* Parse boot sector and get information */
 
@@ -193,8 +166,7 @@ public class Fat32_reader {
 		}
 
 		/* Close the file */
-
-		//return 0; /* Success */
+/* Success */
 	}
 	static void info(){
 		//BPB_BytsPerSec
@@ -217,9 +189,7 @@ public class Fat32_reader {
 		int third = disk[37] << 8;
 		int fourth = disk[36] ^ 0xFFFFFF00;
 		front = (front | second | third | fourth);
-		//front = ((disk[39] << 24) | (disk[38] << 16) | (disk[37] << 8) ^ fourth);
-		//Integer unsigned = front;
-		System.out.println( front); //TODO this doesnt work
+		System.out.println( front); 
 		
 	
 		
@@ -249,10 +219,9 @@ public class Fat32_reader {
 	}
 	
 	
-	//need to make the root file before we call this method
-		// and then root.children = parseDir(rootAddr + 32);
-		
-		// this address should be the address of the first entry and not the dirEntry
+		/*
+		 * this address should be the address of the first entry and not the dirEntry
+		 */
 		private static ArrayList<MyFile> parseRoot(int addr){  
 			boolean EOC = false;
 			
@@ -270,14 +239,10 @@ public class Fat32_reader {
 					continue;
 				}
 				else if(myFile.isDirectory){ 
-					//System.out.println("we got to here  " +  myFile.name);
 					myFile.children = parseDir(myFile);//address here means the address of the actual directory not dirEntry
 					children.add(myFile);
 				}
 				else { 
-					//read data
-					//System.out.println("we got to here  " +  myFile.name);
-					
 					children.add(myFile);
 				}
 			}
@@ -294,34 +259,35 @@ public class Fat32_reader {
 			int addrStart = file.address + 64;
 			for(int i = 0;!EOC; i += 32){
 				
-				if(i == (BPB_BytsPerSec * BPB_SecPerClus) || ((i == (BPB_BytsPerSec * BPB_SecPerClus) - 64) && nextClusToRead == 1)){
-					i = 0;
-					int nextAddr = clusNums.get(nextClusToRead);
+				//if were at the end of the cluster
+				if(i == (BPB_BytsPerSec * BPB_SecPerClus) || 
+						((i == (BPB_BytsPerSec * BPB_SecPerClus) - 64) && nextClusToRead == 1)){
+					i = 0;											//reset i to 0
+					int nextAddr = clusNums.get(nextClusToRead);	//change next cluster number
 					nextClusToRead++;
-					if(nextAddr == 0x0FFFFFFF){
+					if(nextAddr == 0x0FFFFFFF){//if the next cluster number is an end of cluster
 						break;
 					}
-					nextAddr = ((nextAddr-2) * (BPB_BytsPerSec * BPB_SecPerClus)) + rootAddr;
+					//set the address of the cluster number
+					nextAddr = ((nextAddr-2) * (BPB_BytsPerSec * BPB_SecPerClus)) + rootAddr;	
 					addrStart = nextAddr;
 				}
+				
 				byte[] dirEntry = getDirEntry(addrStart + i);
 				if(dirEntry == null){
 					EOC = true;
 					break;
 				}	
-				
 
-				MyFile myFile = new MyFile(dirEntry, file);//
+				MyFile myFile = new MyFile(dirEntry, file);
 				if(myFile.longDir){
 					continue;
 				}
 				else if(myFile.isDirectory){ 
-					System.out.println("we got to here  " +  myFile.name);
-					myFile.children = parseDir(myFile);//address here means the address of the actual directory not dirEntry
+					myFile.children = parseDir(myFile);
 					children.add(myFile);
 				}
 				else { 
-					System.out.println("we got to here  " +  myFile.name);
 					children.add(myFile);
 				}
 			}
