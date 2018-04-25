@@ -81,17 +81,16 @@ public class Fat32_reader {
 
 		root.children = parseRoot(rootAddr + 32);
 
+		volumeID = root.name;
 		
 
 		/* Parse boot sector and get information */
 
 		/* Get root directory address */
-		//System.out.println("Root addr is 0x%x\n", root_addr);
 
 
-		/* Main loop.  You probably want to create a helper function
-	       for each command besides quit. */
-		volumeID = root.name;
+		/* Main loop. */
+
 		
 		boolean cont = true;
 		while(cont) {
@@ -122,6 +121,10 @@ public class Fat32_reader {
 				break;
 				
 			case "size":
+				if(words.length < 2){
+					System.out.println("Must give a directory name" );
+					break;
+				}
 				System.out.println("Going to size!");
 				size(words[1]);
 				break;
@@ -131,24 +134,37 @@ public class Fat32_reader {
 				System.out.println(volumeID);
 				break;
 			case "cd":
+				if(words.length < 2){
+					System.out.println("Must give a directory name" );
+					break;
+				}
 				System.out.println("Going to cd!" );
 				cd(words[1]);
 				break;
 				
 			case "ls":
+				if(words.length < 2){
+					System.out.println("Must give a directory name" );
+					break;
+				}
 				System.out.println("Going to ls!");
-				ls();
+				ls(words[1]);
 				break;
 				
 			case "stat":
+				if(words.length < 2){
+					System.out.println("Must give a file name" );
+					break;
+				}
 				System.out.println("Going to stat!");
-				// add root file
-				//if File name does not exsist print out an error
-				// otherwise print out stuff
-				stat(words[1]);// + words[2]);
+				stat(words[1]);
 				break;
 				
 			case "read":
+				if(words.length < 4){
+					System.out.println("Must give a file name, position to start from, and amount of bytes to be read" );
+					break;
+				}
 				System.out.println("Going to read!\n");
 				read(words[1], Integer.parseInt(words[2]), Integer.parseInt(words[3]));
 				break;
@@ -195,16 +211,53 @@ public class Fat32_reader {
 		
 	}
 	
-	static void ls(){
+	static void ls(String fileName){
+		if(fileName.equals(".")){
+			ls(root);
+			return;
+		}
+		
+		else if(fileName.equals("..")){
+			if(root.parent != null){
+				ls(root.parent);
+				return;
+			}
+			else{
+				System.out.println("In root directory, there is no directory above this one");
+				return;
+			}
+			
+		}
+
 		for(int i = 0; i < root.children.size(); i++){
-			MyFile crnt = root.children.get(i);
+			MyFile child = root.children.get(i);
+			if(fileName.equalsIgnoreCase(child.name)){
+				if(child.isDirectory){
+					ls(child);
+					return;
+
+				}
+				else{
+					System.out.println(fileName + " is not a directory");
+					return;
+				}
+			}
+			
+		}
+		System.out.println(fileName + " does not exist");
+		
+	}
+	
+	
+	private static void ls(MyFile file){
+		for(int i = 0; i < file.children.size(); i++){
+			MyFile crnt = file.children.get(i);
 			if(!crnt.hidden){
 				System.out.println(crnt.name);
 
 			}
 		}
 	}
-	
 	
 	
 	//for a 4 byte sequence 0xABCD
@@ -324,14 +377,21 @@ public class Fat32_reader {
 			return dirEntry;
 		}
 	private static void stat(String filename){
-		if(filename.equalsIgnoreCase(root.name)){
+		if(filename.equalsIgnoreCase(root.name) || filename.equals(".")){
 			
 			{
-				System.out.println("Name of File:   " +  filename);
-				System.out.println("Size of File:   " +  root.fileSize);
-				System.out.println("Attributes: " + root.Attr_Type);	
-				System.out.println();
-				System.out.println("First cluster Number:   " +  root.clusterNum);
+				stat(root);
+				return;
+			}
+		}
+		
+		else if(filename.equals("..")){
+			if(root.parent != null){
+				stat(root.parent);
+				return;
+			}
+			else{
+				System.out.println("There is nothing above this directory");
 				return;
 			}
 		}
@@ -340,26 +400,23 @@ public class Fat32_reader {
 		{
 			if(filename.equalsIgnoreCase(root.children.get(i).name.toString()))
 			{
-				System.out.println("Name of File:   " +  filename);
-				System.out.println("Size of File:   " +  root.children.get(i).fileSize);
-				System.out.println("Attributes: " + root.children.get(i).Attr_Type);	
-				System.out.println();
-				System.out.println("First cluster Number:   " +  root.children.get(i).clusterNum);
+				stat(root.children.get(i));
 				return;
 			}
 			
 		}
 
-		System.out.println("Error: file/directory does not exist");
-		//System.out.println("         Read only:   " +  dir.readOnly);
-		//System.out.println("         Is Hidden:   " +  dir.hidden);
-		//System.out.println("         Is an OS:   " +  dir.ATTR_Sys);
-		//System.out.println("         Is Directory:   " +  dir.isDirectory);
-		//System.out.println("         Has been modified:   " +  dir.modified);
-		
-		
-		
-		}
+		System.out.println("Error: file/directory does not exist");	
+	}
+	
+	
+	private static void stat(MyFile file){
+		System.out.println("Name of File:   " +  file.name);
+		System.out.println("Size of File:   " +  file.fileSize);
+		System.out.println("Attributes: " + file.Attr_Type);	
+		System.out.println();
+		System.out.println("First cluster Number:   " +  file.clusterNum);
+	}
 	
 	public static void cd(String fileName){
 		if(fileName.equals(".")){
@@ -414,6 +471,9 @@ public class Fat32_reader {
 			if(fileNameToRead.equalsIgnoreCase(root.children.get(i).name))
 			{
 				fileToRead = root.children.get(i);
+				if(fileToRead.isDirectory){
+					System.out.println("Cannot read a directory");
+				}
 				break;
 			}
 			
