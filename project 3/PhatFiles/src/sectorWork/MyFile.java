@@ -26,6 +26,7 @@ public class MyFile {
 	public int address;
 	public int clusterNum;
 	public MyFile parent;
+	public ArrayList<Integer> clusNums;
 	
 	
 	
@@ -161,7 +162,7 @@ public class MyFile {
 	}
 	
 	private void read(){
-		ArrayList<Integer> clusNums = getClusNums();
+		clusNums = getClusNums();
 		
 		int nextClusToRead = 1;
 		boolean EOF = false;

@@ -1,6 +1,8 @@
 package sectorWork;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 //import java.io.File;
@@ -16,12 +18,15 @@ public class Fat32_reader {
 	
 	static int BPB_BytsPerSec;
 	static int BPB_SecPerClus;
+	static int clusterSize;
 	static int rootAddr;
 	static int FAT;
 	static MyFile root;
 	static String volumeID;
+	private static List<Integer> freeList;
 	
 	public static void main(String[] args){
+		//makeFile("", 5);
 		
 		/* Parse args and open our image file */
 
@@ -73,6 +78,8 @@ public class Fat32_reader {
 		rootAddr = FirstSectorofCluster * BPB_BytsPerSec;
 		
 		FAT = BPB_BytsPerSec * BPB_ResvdSectCnt;
+		
+		clusterSize = BPB_BytsPerSec * BPB_SecPerClus;
 
 
 		byte[] rootDirEntry = getDirEntry(rootAddr);
@@ -83,6 +90,9 @@ public class Fat32_reader {
 
 		volumeID = root.name;
 		
+		//parse fat for free list
+		freeList = new ArrayList<Integer>();
+		parseFreelist();
 
 		/* Parse boot sector and get information */
 
@@ -167,6 +177,10 @@ public class Fat32_reader {
 				}
 				System.out.println("Going to read!\n");
 				read(words[1], Integer.parseInt(words[2]), Integer.parseInt(words[3]));
+				break;
+			
+			case "freelist":
+				freeList();
 				break;
 				
 			case "quit":
@@ -313,8 +327,8 @@ public class Fat32_reader {
 			for(int i = 0;!EOC; i += 32){
 				
 				//if were at the end of the cluster
-				if(i == (BPB_BytsPerSec * BPB_SecPerClus) || 
-						((i == (BPB_BytsPerSec * BPB_SecPerClus) - 64) && nextClusToRead == 1)){
+				if(i == (clusterSize) || 
+						((i == (clusterSize) - 64) && nextClusToRead == 1)){
 					i = 0;											//reset i to 0
 					int nextAddr = clusNums.get(nextClusToRead);	//change next cluster number
 					nextClusToRead++;
@@ -322,7 +336,7 @@ public class Fat32_reader {
 						break;
 					}
 					//set the address of the cluster number
-					nextAddr = ((nextAddr-2) * (BPB_BytsPerSec * BPB_SecPerClus)) + rootAddr;	
+					nextAddr = ((nextAddr-2) * (clusterSize)) + rootAddr;	
 					addrStart = nextAddr;
 				}
 				
@@ -514,6 +528,82 @@ public class Fat32_reader {
 				System.out.println("Error: file/directory does not exist");
 		
 	}
+	
+	public static void parseFreelist(){
+		int index = 0;
+		for(int i = FAT; i < rootAddr; i += 4){
+			int clusNum = disk[i] | disk[i +1] | disk[i +2] | disk[i +3];
+			clusNum = clusNum & 0xFF;
+			if(clusNum == 0){
+				freeList.add(index);
+			}
+			index++;
+		}
+		
+		freeList.sort(new Comparator<Integer>() {
+
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o1.compareTo(o2);
+			}
+			
+		});
+	}
+	
+	public static void freeList(){
+		System.out.println(freeList.get(0));
+		System.out.println(freeList.get(1));
+		System.out.println(freeList.get(2));
+		
+		for(int i =0; i < 50; i++){
+			System.out.println(freeList.get(i));
+
+		}
+		System.out.println(freeList.size());
+
+	}
+	
+	private static void makeFile(String filename, int size){
+		int numOfClus = size /	(clusterSize);
+		if(size % (clusterSize) != 0){
+			numOfClus++;
+		}
+		
+		ArrayList<Integer> clusNums = root.clusNums;
+		// make sure were getting right cluster number
+		Integer lastClus = root.clusNums.get(root.clusNums.size() - 2);
+		int addrOfClus = lastClus * (clusterSize) + rootAddr;
+		int checkByte = addrOfClus + (clusterSize - 32);// maybe needs to be 31?
+		if(disk[checkByte] == 0){
+			addClusToDir(lastClus);
+		}
+		
+	}
+	
+	
+	private static byte[] makeDirEntry(String filename, int size, int firstClus){
+		byte[] dirEntry =  new byte[32];
+		
+		//take care of name
+		
+		//last 4 bytes are file size
+		//26-27 first clus low word
+		//20-21 first clus high word
+		//0-10 name
+		//11 all attributes
+		
+		return dirEntry;
+	}
+	
+	private static void addClusToDir(int lastClus){
+		int location = (lastClus * 4) + FAT;
+		int nextClus = freeList.remove(0);
+		//disk[location] = nextClus; reveres endian 
+		location = (nextClus * 4) + FAT;
+		//disk[location] = 0x0FFFFFF8; reveres endian 
+	}
+	
+	
 }
 	
 
