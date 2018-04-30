@@ -75,6 +75,7 @@ public class MyFile {
 		clusterNum = fourBytesToInt(21, 20, 27, 26);
 		fileSize = fourBytesToInt(31, 30, 29, 28);
 		address = getAddress();
+		clusNums = getClusNums();
 		if(isFile){
 			read();
 		}
@@ -162,8 +163,7 @@ public class MyFile {
 	}
 	
 	private void read(){
-		clusNums = getClusNums();
-		
+			
 		int nextClusToRead = 1;
 		boolean EOF = false;
 		

@@ -24,6 +24,7 @@ public class Fat32_reader {
 	static MyFile root;
 	static String volumeID;
 	private static List<Integer> freeList;
+	public static int FATsz;
 	
 	public static void main(String[] args){
 		//makeFile("", 5);
@@ -53,7 +54,7 @@ public class Fat32_reader {
 		
 		int BPB_ResvdSectCnt = (disk[15] & 0x000000FF) << 8 | (disk[14] & 0x000000FF);
 		int BPB_NumFATs = disk[16];
-		int FATsz = ((disk[39] << 24) | ((disk[38] & 0x000000FF) << 16)  | ((disk[37] & 0x000000FF) << 8 ) | (disk[36] & 0x000000FF));
+		FATsz = ((disk[39] << 24) | ((disk[38] & 0x000000FF) << 16)  | ((disk[37] & 0x000000FF) << 8 ) | (disk[36] & 0x000000FF));
 		int BPB_RootEntCnt =  disk[18] << 8 | disk[17];
 		int RootDirSectors;
 		int TotSec = ((disk[35] << 24) | ((disk[34] & 0x000000FF) << 16)  | ((disk[33] & 0x000000FF) << 8 ) | (disk[32] & 0x000000FF));
@@ -531,7 +532,7 @@ public class Fat32_reader {
 	
 	public static void parseFreelist(){
 		int index = 0;
-		for(int i = FAT; i < rootAddr; i += 4){
+		for(int i = FAT; i < FAT + (FATsz * BPB_BytsPerSec) ; i += 4){
 			int clusNum = disk[i] | disk[i +1] | disk[i +2] | disk[i +3];
 			clusNum = clusNum & 0xFF;
 			if(clusNum == 0){
@@ -565,25 +566,86 @@ public class Fat32_reader {
 	
 	private static void makeFile(String filename, int size){
 		int numOfClus = size /	(clusterSize);
-		if(size % (clusterSize) != 0){
+		if(size % clusterSize != 0){ // if we need overflow into the next cluster
 			numOfClus++;
 		}
 		
 		ArrayList<Integer> clusNums = root.clusNums;
 		// make sure were getting right cluster number
 		Integer lastClus = root.clusNums.get(root.clusNums.size() - 2);
-		int addrOfClus = lastClus * (clusterSize) + rootAddr;
+		int addrOfClus = lastClus * clusterSize + rootAddr;
 		int checkByte = addrOfClus + (clusterSize - 32);// maybe needs to be 31?
-		if(disk[checkByte] == 0){
+		
+		if(disk[checkByte] != 0 && disk[checkByte] != 0xE5){
 			addClusToDir(lastClus);
 		}
 		
+		lastClus = root.clusNums.get(root.clusNums.size() - 2);
+		int firstClusOfFile = freeList.remove(0);
+		byte[] dirEntry = makeDirEntry(filename, size, firstClusOfFile);
+		enterEntry(dirEntry, lastClus);
+		
+		//add all the data for this file
+		
+		MyFile child = new MyFile(dirEntry, root);
+		root.children.add(child);
+
+		
+	}
+	
+	private static void updateData(int firstClus, int size){
+		int bytesAdded = 0;
+		int startAddr = firstClus * clusterSize + rootAddr;
+		//New File.\r\n
+		char[] word;
+		String blh = "New File.\r\n";
+		word = blh.toCharArray(); 
+		
+		//need to keep writing everything here
+		//need to keep taking off a new cluster number
+		//update both fats with the new cluster numbers
+		
+	}
+	
+	private static void enterEntry(byte[] entry, int cluster){
+		int addr = cluster * clusterSize + rootAddr;
+		for(int i = addr; i < addr + clusterSize; i +=32){
+			if( disk[i] == 0 ||  disk[i] == 0xE5){
+				for(int j = 0; j < 32; j++){
+					disk[i + j] = entry[j];
+				}
+			}
+		}
 	}
 	
 	
 	private static byte[] makeDirEntry(String filename, int size, int firstClus){
 		byte[] dirEntry =  new byte[32];
+		String[] names = filename.split(".");
+		char[] charName = names[0].toCharArray();
+		int charNameSize = charName.length;
+		if(charName.length > 8)
+		{
+			charNameSize = 8;
+		}
+		for(int i = 0; i < charNameSize; i++)
+		{
+			dirEntry[i] = (byte)charName[i];
+		}
+		if(names[1] != null)
+		{
+			char[] ext = names[1].toCharArray();
 		
+			int extSize = ext.length;
+			if(ext.length > 3)
+			{
+				extSize = 3;
+			}
+			for(int j = 0; j < extSize; j++)
+			{
+				dirEntry[j + 8] = (byte)charName[j];
+			}
+		}
 		//take care of name
 		
 		//last 4 bytes are file size
@@ -598,9 +660,18 @@ public class Fat32_reader {
 	private static void addClusToDir(int lastClus){
 		int location = (lastClus * 4) + FAT;
 		int nextClus = freeList.remove(0);
+		
+		//adding the new clus num to the list of cluster numbers for the root file right before the EOF
+		root.clusNums.add(root.clusNums.size() -1, nextClus);// check api for arraylist
+
 		//disk[location] = nextClus; reveres endian 
-		location = (nextClus * 4) + FAT;
-		//disk[location] = 0x0FFFFFF8; reveres endian 
+		int nextClusLocation = (nextClus * 4) + FAT;
+		//disk[nextClusLocation] = 0x0FFFFFF8; reveres endian 
+		
+		int locationFat2 = (lastClus * 4) + FAT + FATsz * BPB_BytsPerSec;
+		//disk[locationFat2] = nextClus; reveres endian 
+		int nextClusLocationFat2 = (nextClus * 4) + FAT + FATsz * BPB_BytsPerSec;
+		//disk[nextClusLocationFat2] = 0x0FFFFFF8; reveres endian 
 	}
 	
 	
