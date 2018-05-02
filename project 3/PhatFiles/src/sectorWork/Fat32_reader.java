@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
 public class Fat32_reader {
 
 	static int MAX_CMD = 80;
@@ -593,14 +594,34 @@ public class Fat32_reader {
 		
 	}
 	
-	private static void updateData(int firstClus, int size){
+	private static void updateData(int firstClus, int size, int numOfClus){
 		int bytesAdded = 0;
 		int startAddr = firstClus * clusterSize + rootAddr;
 		//New File.\r\n
 		char[] word;
+		int count511 = 0;
+		int wordCounter = 0;
 		String blh = "New File.\r\n";
 		word = blh.toCharArray(); 
 		
+		
+		
+		while(bytesAdded < size){
+			if(bytesAdded % clusterSize != 0)
+			{
+				int nextClus = freeList.remove(0);
+				//update both fats 
+				
+				startAddr = nextClus * clusterSize + rootAddr;
+				count511 = 0;
+			}
+			bytesAdded++;
+			count511++;
+			wordCounter = wordCounter++;
+			wordCounter = wordCounter % word.length;
+			disk[startAddr + count511] = (byte) word[wordCounter];
+			
+		}
 		//need to keep writing everything here
 		//need to keep taking off a new cluster number
 		//update both fats with the new cluster numbers
@@ -646,13 +667,25 @@ public class Fat32_reader {
 				dirEntry[j + 8] = (byte)charName[j];
 			}
 		}
-		//take care of name
+		//name done 
+		byte[] fileSize = intToByteArray(size);
+		for(int k = 0; k < 4; k++)
+		{
+			dirEntry[28 + k] = fileSize[k];
+		}
+		//file size done 
+		byte[] clus = intToByteArray(firstClus);
+		dirEntry[26] = clus[0];
+		dirEntry[27] = clus[1];
+		dirEntry[20] = clus[2];
+		dirEntry[21] = clus[3];
+		//cluster done 
 		
-		//last 4 bytes are file size
-		//26-27 first clus low word
-		//20-21 first clus high word
-		//0-10 name
-		//11 all attributes
+		dirEntry[11] = 0x20;//this is the same as the CONST.txt file
+		//all attributes done
+
+		
+		
 		
 		return dirEntry;
 	}
@@ -672,6 +705,15 @@ public class Fat32_reader {
 		//disk[locationFat2] = nextClus; reveres endian 
 		int nextClusLocationFat2 = (nextClus * 4) + FAT + FATsz * BPB_BytsPerSec;
 		//disk[nextClusLocationFat2] = 0x0FFFFFF8; reveres endian 
+	}
+	
+	//returns in little endian 
+	public static final byte[] intToByteArray(int value) {
+	    return new byte[] {
+	            (byte)(value),
+	            (byte)(value >>> 8),
+	            (byte)(value >>> 16),
+	            (byte)( value >>> 24)};
 	}
 	
 	
