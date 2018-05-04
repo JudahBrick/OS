@@ -35,6 +35,7 @@ public class MyFile {
 		this.parent = parent;
 		if(entry[11] == 0x0F){
 			longDir = true;
+			return;
 		}
 		children =  new ArrayList<MyFile>();
 		this.entry = entry;
@@ -77,6 +78,7 @@ public class MyFile {
 		address = getAddress();
 		clusNums = getClusNums();
 		if(isFile){
+			//clusNums = getClusNums();
 			read();
 		}
 	}
@@ -146,7 +148,7 @@ public class MyFile {
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		nums.add(clusterNum);
 		int i = 1;
-		while(nums.get(i -1) != 0x0FFFFFFF && nums.get(i -1) != 0x0FFFFFF8){
+		while(nums.get(i -1) != 0x0FFFFFFF && nums.get(i -1) != 0x0FFFFFF8  && nums.get(i -1) != 0xEFFF){
 			int pastClus = nums.get(i -1);
 			int nextClus = (pastClus * 4) + Fat32_reader.FAT;
 			nextClus = fourBytesToInt(nextClus);
@@ -163,7 +165,8 @@ public class MyFile {
 	}
 	
 	private void read(){
-			
+		
+		//clusNums = getClusNums();
 		int nextClusToRead = 1;
 		boolean EOF = false;
 		

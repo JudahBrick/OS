@@ -78,6 +78,7 @@ public class Fat32_reader {
 		int ThisFATEntOffset = FATOffset % BPB_BytsPerSec;
 
 		rootAddr = FirstSectorofCluster * BPB_BytsPerSec;
+		//int blah = rootAddr; 
 		
 		FAT = BPB_BytsPerSec * BPB_ResvdSectCnt;
 		
@@ -183,6 +184,11 @@ public class Fat32_reader {
 			
 			case "freelist":
 				freeList();
+				break;
+				
+			case "newfile":
+				
+				makeFile(words[1], Integer.parseInt(words[2]));
 				break;
 				
 			case "quit":
@@ -482,6 +488,7 @@ public class Fat32_reader {
 	private static void read(String fileNameToRead, int position, int numBytes){
 		MyFile fileToRead = null;
 		ArrayList<Character> file;
+		ArrayList<MyFile> gg = root.children;
 		for(int i = 0; i < root.children.size(); i++)
 		{
 			if(fileNameToRead.equalsIgnoreCase(root.children.get(i).name))
@@ -590,6 +597,7 @@ public class Fat32_reader {
 		
 		MyFile child = new MyFile(dirEntry, root);
 		root.children.add(child);
+		updateData(firstClusOfFile,size, numOfClus);
 
 		
 	}
@@ -617,7 +625,7 @@ public class Fat32_reader {
 			}
 			bytesAdded++;
 			count511++;
-			wordCounter = wordCounter++;
+			wordCounter++;
 			wordCounter = wordCounter % word.length;
 			disk[startAddr + count511] = (byte) word[wordCounter];
 			
@@ -642,7 +650,7 @@ public class Fat32_reader {
 	
 	private static byte[] makeDirEntry(String filename, int size, int firstClus){
 		byte[] dirEntry =  new byte[32];
-		String[] names = filename.split(".");
+		String[] names = filename.split("\\.");
 		char[] charName = names[0].toCharArray();
 		int charNameSize = charName.length;
 		if(charName.length > 8)
@@ -652,6 +660,10 @@ public class Fat32_reader {
 		for(int i = 0; i < charNameSize; i++)
 		{
 			dirEntry[i] = (byte)charName[i];
+		}
+		for(int k = charNameSize; k < 8; k ++)
+		{
+			dirEntry[k] = 0x20;
 		}
 		if(names[1] != null)
 		{
@@ -664,7 +676,7 @@ public class Fat32_reader {
 			}
 			for(int j = 0; j < extSize; j++)
 			{
-				dirEntry[j + 8] = (byte)charName[j];
+				dirEntry[j + 8] = (byte)ext[j];
 			}
 		}
 		//name done 
