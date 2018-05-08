@@ -154,6 +154,7 @@ public class MyFile {
 			nextClus = fourBytesToInt(nextClus);
 			nums.add(nextClus);
 			i++;
+			int j = 0;
 		}	
 		return nums;
 	}
@@ -172,7 +173,7 @@ public class MyFile {
 		
 		int addrStart = address;
 		for(int i = 0;!EOF; i ++){
-			
+			//if at end of cluster move to next 
 			if(i == (Fat32_reader.BPB_BytsPerSec * Fat32_reader.BPB_SecPerClus)){
 				i = 0;
 				int nextAddr = clusNums.get(nextClusToRead);

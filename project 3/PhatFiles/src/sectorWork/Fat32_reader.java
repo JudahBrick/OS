@@ -22,6 +22,7 @@ public class Fat32_reader {
 	static int clusterSize;
 	static int rootAddr;
 	static int FAT;
+	static int FATszInBytes;
 	static MyFile root;
 	static String volumeID;
 	private static List<Integer> freeList;
@@ -65,6 +66,7 @@ public class Fat32_reader {
 		RootDirSectors = ((BPB_RootEntCnt * 32) + (BPB_BytsPerSec -1)) / BPB_BytsPerSec;
 		
 		int FirstDataSector = BPB_ResvdSectCnt + (BPB_NumFATs * FATsz) + RootDirSectors;
+		System.out.println(FirstDataSector);
 		
 		int FirstSectorofCluster = ((BPB_RootClus - 2) * BPB_SecPerClus) + FirstDataSector;
 		
@@ -76,11 +78,13 @@ public class Fat32_reader {
 		
 		int ThisFATSecNum = BPB_ResvdSectCnt + (FATOffset / BPB_BytsPerSec);
 		int ThisFATEntOffset = FATOffset % BPB_BytsPerSec;
+		
 
 		rootAddr = FirstSectorofCluster * BPB_BytsPerSec;
 		//int blah = rootAddr; 
 		
 		FAT = BPB_BytsPerSec * BPB_ResvdSectCnt;
+		FATszInBytes = BPB_BytsPerSec * FATsz;
 		
 		clusterSize = BPB_BytsPerSec * BPB_SecPerClus;
 
@@ -595,41 +599,64 @@ public class Fat32_reader {
 		
 		//add all the data for this file
 		
+		updateData(firstClusOfFile,size, numOfClus);
 		MyFile child = new MyFile(dirEntry, root);
 		root.children.add(child);
-		updateData(firstClusOfFile,size, numOfClus);
 
 		
 	}
 	
 	private static void updateData(int firstClus, int size, int numOfClus){
 		int bytesAdded = 0;
-		int startAddr = firstClus * clusterSize + rootAddr;
+		int startAddr = (firstClus - 2) * clusterSize + rootAddr;
 		//New File.\r\n
 		char[] word;
 		int count511 = 0;
 		int wordCounter = 0;
 		String blh = "New File.\r\n";
 		word = blh.toCharArray(); 
-		
-		
+		int currentClus = firstClus;
+		byte[] nextClusNum = intToByteArray(0x0FFFFFF8);
+		int fatOffset = currentClus * 4;
+		for(int i = 0; i < 4; i++){
+			disk[FAT + fatOffset + i] = nextClusNum[i];
+			disk[FAT + FATszInBytes + fatOffset + i] = nextClusNum[i];
+		}
 		
 		while(bytesAdded < size){
-			if(bytesAdded % clusterSize != 0)
+			if( clusterSize == count511) //check off by one
 			{
 				int nextClus = freeList.remove(0);
 				//update both fats 
+				nextClusNum = intToByteArray(nextClus);
+				fatOffset = currentClus * 4;
+				//updating both FATs with next cluster number
+				//(i.e updating location four with the value of 5 to point it to the next cluster)
+				for(int i = 0; i < 4; i++){	
+					disk[FAT + fatOffset + i] = nextClusNum[i];
+					disk[FAT + FATszInBytes + fatOffset + i] = nextClusNum[i];
+				}
+				//right away mark this cluster as EOF, we will overwrite it if it is not the EOF- 
+				fatOffset = nextClus * 4;
+				nextClusNum = intToByteArray(0x0FFFFFF8);
+				for(int i = 0; i < 4; i++){
+					disk[FAT + fatOffset + i] = nextClusNum[i];
+					disk[FAT + FATszInBytes + fatOffset + i] = nextClusNum[i];
+				}
 				
 				startAddr = nextClus * clusterSize + rootAddr;
 				count511 = 0;
 			}
+			disk[startAddr + count511] = (byte) word[wordCounter];
+			System.out.println((char)disk[startAddr + count511]);
 			bytesAdded++;
-			count511++;
 			wordCounter++;
 			wordCounter = wordCounter % word.length;
-			disk[startAddr + count511] = (byte) word[wordCounter];
+			count511++;
 			
 		}
+		
+		
 		//need to keep writing everything here
 		//need to keep taking off a new cluster number
 		//update both fats with the new cluster numbers
