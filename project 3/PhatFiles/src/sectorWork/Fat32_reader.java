@@ -492,7 +492,7 @@ public class Fat32_reader {
 	private static void read(String fileNameToRead, int position, int numBytes){
 		MyFile fileToRead = null;
 		ArrayList<Character> file;
-		ArrayList<MyFile> gg = root.children;
+		//ArrayList<MyFile> gg = root.children;
 		for(int i = 0; i < root.children.size(); i++)
 		{
 			if(fileNameToRead.equalsIgnoreCase(root.children.get(i).name))
@@ -513,10 +513,10 @@ public class Fat32_reader {
 			return;
 		}
 		
-		ArrayList<Character> fileToPrint = new ArrayList<>();
+		//ArrayList<Character> fileToPrint = new ArrayList<>();
 		
-		for(int i = position; i <= position + numBytes || i < file.size(); i++){
-			System.out.print(file.get(i));
+		for(int i = 0; i < numBytes && position + i < file.size(); i++){
+			System.out.print(file.get(position + i));
 		}
 		System.out.println("");	
 	}
@@ -654,6 +654,10 @@ public class Fat32_reader {
 			wordCounter = wordCounter % word.length;
 			count511++;
 			
+		}
+		while(count511 < clusterSize){
+			disk[startAddr + count511] = 0x00;
+			count511++;
 		}
 		
 		
