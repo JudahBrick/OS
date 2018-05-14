@@ -36,7 +36,7 @@ static struct file_operations hello_proc_ops = {
 
 /* This function is called to create the special proc file entry on 
  * module load.  This file is created as /proc/helloworld. */
-int hello_proc_init(char[] rem) {
+int hello_proc_init(void) {
 
    proc_create_data(ENTRY_NAME, PERMS, NULL, &hello_proc_ops, NULL);
    
