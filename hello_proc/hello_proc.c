@@ -33,6 +33,7 @@ static struct file_operations hello_proc_ops = {
    .write = procfile_write,
 };
 
+char[] rem = kmalloc(80);
 
 /* This function is called to create the special proc file entry on 
  * module load.  This file is created as /proc/helloworld. */
@@ -42,7 +43,6 @@ int hello_proc_init(char[] rem) {
    
    /* This message will print in /var/log/syslog or on the first tty. */
    printk("/proc/%s created\n", ENTRY_NAME");
-   printk("/proc/%s read\n", rem");
 	return 0;
 }
 
