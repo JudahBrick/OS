@@ -7,7 +7,7 @@
 
 MODULE_LICENSE("GPL");  /* Kernel needs this license. */
 
-#define ENTRY_NAME "helloworld"
+#define ENTRY_NAME "remember"
 #define PERMS 0644
 #define PARENT NULL
 
@@ -36,13 +36,14 @@ static struct file_operations hello_proc_ops = {
 
 /* This function is called to create the special proc file entry on 
  * module load.  This file is created as /proc/helloworld. */
-int hello_proc_init(void) {
+int hello_proc_init(char[] rem) {
 
    proc_create_data(ENTRY_NAME, PERMS, NULL, &hello_proc_ops, NULL);
    
    /* This message will print in /var/log/syslog or on the first tty. */
-   printk("/proc/%s created\n", "remember");
-   return 0;
+   printk("/proc/%s created\n", ENTRY_NAME");
+   printk("/proc/%s read\n", rem");
+	return 0;
 }
 
 /* This function is called when someone tries to READ from the file
