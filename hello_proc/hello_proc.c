@@ -33,7 +33,7 @@ static struct file_operations hello_proc_ops = {
    .write = procfile_write,
 };
 
-char* rem = kmalloc(80);
+char* rem = kmalloc(80 * sizeOf(char));
 
 /* This function is called to create the special proc file entry on 
  * module load.  This file is created as /proc/helloworld. */
