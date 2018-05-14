@@ -41,7 +41,7 @@ int hello_proc_init(void) {
    proc_create_data(ENTRY_NAME, PERMS, NULL, &hello_proc_ops, NULL);
    
    /* This message will print in /var/log/syslog or on the first tty. */
-   printk("/proc/%s created\n", ENTRY_NAME);
+   printk("/proc/%s created\n", "remember");
    return 0;
 }
 
