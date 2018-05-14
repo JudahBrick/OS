@@ -60,7 +60,6 @@ public class Fat32_reader {
 		int BPB_RootEntCnt =  disk[18] << 8 | disk[17];
 		int RootDirSectors;
 		int TotSec = ((disk[35] << 24) | ((disk[34] & 0x000000FF) << 16)  | ((disk[33] & 0x000000FF) << 8 ) | (disk[32] & 0x000000FF));
-		;
 		
 		
 		RootDirSectors = ((BPB_RootEntCnt * 32) + (BPB_BytsPerSec -1)) / BPB_BytsPerSec;
@@ -191,10 +190,20 @@ public class Fat32_reader {
 				break;
 				
 			case "newfile":
-				
+				if(words.length < 3){
+					System.out.println("Must give a file name to be made and number of bytes to be written" );
+					break;
+				}
 				makeFile(words[1], Integer.parseInt(words[2]));
 				break;
-				
+			case "delete":
+				if(words.length < 2){
+					System.out.println("Must give a file name to be deleted" );
+					break;
+				}
+				delete(words[1]);
+				break;
+			
 			case "quit":
 				cont = false;
 				System.out.println("Goodbye!\n");
@@ -568,10 +577,7 @@ public class Fat32_reader {
 		System.out.println(freeList.get(1));
 		System.out.println(freeList.get(2));
 		
-		for(int i =0; i < 50; i++){
-			System.out.println(freeList.get(i));
-
-		}
+		
 		System.out.println(freeList.size());
 
 	}
@@ -696,7 +702,7 @@ public class Fat32_reader {
 		{
 			dirEntry[k] = 0x20;
 		}
-		if(names[1] != null)
+		if(names.length > 1)
 		{
 			char[] ext = names[1].toCharArray();
 		
@@ -759,7 +765,50 @@ public class Fat32_reader {
 	            (byte)( value >>> 24)};
 	}
 	
-	
+	public static void delete(String filename){
+		//find file
+		MyFile fileToDelete = null;
+		ArrayList<Integer> clusNumsToDelete;
+		for(int i = 0; i < root.children.size(); i++)
+		{
+			if(filename.equalsIgnoreCase(root.children.get(i).name))
+			{
+				fileToDelete = root.children.get(i);
+				//can't delete a dir
+				if(fileToDelete.isDirectory){
+					System.out.println("Cannot delete a directory");
+					return;
+				}
+				//delete it from the root's children
+				root.children.remove(fileToDelete);
+				break;
+			}
+		}
+		if(fileToDelete == null){
+			System.out.println("file does not exist");
+		}
+		clusNumsToDelete = fileToDelete.clusNums;
+		for(int i = 0; i < clusNumsToDelete.size() - 1; i++){
+			int toAddToFreeList = clusNumsToDelete.get(i);
+			//zero out the entry in the fat
+			disk[FAT + (4 * toAddToFreeList)] = 0x00;
+			disk[FAT + (4 * toAddToFreeList) + 1] = 0x00;
+			disk[FAT + (4 * toAddToFreeList) + 2] = 0x00;
+			disk[FAT + (4 * toAddToFreeList) + 3] = 0x00;
+			//add it to the free list 
+			freeList.add(toAddToFreeList);
+		}
+		
+		freeList.sort(new Comparator<Integer>() {
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o1.compareTo(o2);
+			}		
+		});
+
+
+		//put in 0xE5 in dir entry for it
+	}
 }
 	
 
