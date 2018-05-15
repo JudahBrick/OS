@@ -104,6 +104,7 @@ ssize_t procfile_write(struct file *filp, const char __user *buf, size_t count, 
    /* Now do something with the data, here we just print it */
     printk("User has sent the value of %s\n", page);
     
+    rem = (char *)vmalloc(count);
     strncpy(rem, page, 80);
     rem[sizeof(rem) -1] = '\0';
     
