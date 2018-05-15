@@ -33,7 +33,7 @@ static struct file_operations hello_proc_ops = {
    .write = procfile_write,
 };
 
-static char[80] = rem kmalloc(80 * sizeof(char));
+static char[] rem  = kmalloc(80 * sizeof(char));
 
 /* This function is called to create the special proc file entry on 
  * module load.  This file is created as /proc/helloworld. */
@@ -104,7 +104,7 @@ ssize_t procfile_write(struct file *filp, const char __user *buf, size_t count, 
    /* Now do something with the data, here we just print it */
     printk("User has sent the value of %s\n", page);
     
-    strncopy(rem, page, 80);
+    strncpy(rem, page, 80);
     rem[sizeof(rem) -1] = '\0';
     
     /* Free the allocated memory, don't touch. */
