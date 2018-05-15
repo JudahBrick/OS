@@ -33,6 +33,7 @@ static struct file_operations hello_proc_ops = {
    .write = procfile_write,
 };
 
+static char[80] = rem kmalloc(80 * sizeof(char));
 
 /* This function is called to create the special proc file entry on 
  * module load.  This file is created as /proc/helloworld. */
@@ -73,7 +74,7 @@ ssize_t procfile_read(struct file *filp, char __user *buf, size_t count, loff_t 
    /* Take the string "Hello World!\n" and put it in ret_buf.  Copy ret_buf
       into the user-space buffer called buf.  buf is what gets
     * displayed to the user when they read the file. */
-   ret = sprintf(ret_buf, "Hello world!\n");
+   ret = sprintf(ret_buf, "page\n");
    if(copy_to_user(buf, ret_buf, ret)) {
       ret = -EFAULT;  //failed, let's get out of here
    }
@@ -102,6 +103,9 @@ ssize_t procfile_write(struct file *filp, const char __user *buf, size_t count, 
 
    /* Now do something with the data, here we just print it */
     printk("User has sent the value of %s\n", page);
+    
+    strncopy(rem, page, 80);
+    rem[sizeof(rem) -1] = '\0';
     
     /* Free the allocated memory, don't touch. */
     vfree(page); 
