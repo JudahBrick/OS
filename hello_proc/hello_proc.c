@@ -74,7 +74,7 @@ ssize_t procfile_read(struct file *filp, char __user *buf, size_t count, loff_t 
    /* Take the string "Hello World!\n" and put it in ret_buf.  Copy ret_buf
       into the user-space buffer called buf.  buf is what gets
     * displayed to the user when they read the file. */
-   ret = sprintf(ret_buf, "page\n");
+   ret = sprintf(ret_buf, rem);
    if(copy_to_user(buf, ret_buf, ret)) {
       ret = -EFAULT;  //failed, let's get out of here
    }
