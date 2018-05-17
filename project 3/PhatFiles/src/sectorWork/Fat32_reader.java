@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 
 public class Fat32_reader {
@@ -38,8 +40,8 @@ public class Fat32_reader {
 		String filename = new File ("").getAbsolutePath();
 		System.out.println(filename);
 		///src
-		Path diskPath = Paths.get(filename + "/src/sectorWork/fat32.img");
-		//Path diskPath = Paths.get(filename + "/sectorWork/fat32.img");
+		//Path diskPath = Paths.get(filename + "/src/sectorWork/fat32.img");
+		Path diskPath = Paths.get(filename + "/sectorWork/fat32.img");
 		try {
 			disk = Files.readAllBytes(diskPath);
 		} catch (IOException e) {
@@ -733,7 +735,23 @@ public class Fat32_reader {
 		dirEntry[11] = 0x20;//this is the same as the CONST.txt file
 		//all attributes done
 
-		
+		//date and time in lower endian order 
+				byte[] date = intToTwoBytes(getDate());
+				byte[] time = intToTwoBytes(getTime());
+				//14-15, 22-23 get time 
+				//16-17, 18-19, 24-25 is date
+				//13 gets 0
+				dirEntry[13] = 0x00;
+				dirEntry[14] = time[0];
+				dirEntry[15] = time[1];
+				dirEntry[22] = time[0];
+				dirEntry[23] = time[1];
+				dirEntry[16] = date[0];
+				dirEntry[17] = date[1];
+				dirEntry[18] = date[0];
+				dirEntry[19] = date[1];
+				dirEntry[24] = date[0];
+				dirEntry[25] = date[1];
 		
 		
 		return dirEntry;
@@ -806,8 +824,39 @@ public class Fat32_reader {
 			}		
 		});
 
-
+		
 		//put in 0xE5 in dir entry for it
+	}
+	private static byte[] intToTwoBytes(int input) {
+		byte[] rtn = new byte[2];
+		byte high = (byte)((input >> 16) & 0x0000FFFF); //high byte
+		byte low = (byte)(input & 0x0000FFFF);
+		rtn[0] = low;
+		rtn[1] = high;
+		return rtn;
+	}
+	private static int getTime()
+	{
+		//ZoneID mtn = new ZoneID();
+		//ZonedDateTime time1 = LocalDateTime.atZone(ZoneId.of("UTC"));
+		//ZonedDateTime time = new ZonedDateTime(null, null, null);
+		ZonedDateTime time1 = ZonedDateTime.now(ZoneId.of("UTC"));
+		int hour = time1.getHour();
+		int min = time1.getMinute();
+		int seconds = time1.getSecond();
+		//int nano = time1.getNano();
+		int time = (seconds >> 1) + (min << 5) + (hour << 11);
+		return time;
+		
+	}
+	private static int getDate()
+	{
+		ZonedDateTime time1 = ZonedDateTime.now(ZoneId.of("UTC"));
+		int day = time1.getDayOfMonth(); //value 1-31
+		int month = time1.getMonthValue(); //value 1-12
+		int year = time1.getYear();
+		int date =  day + (month << 5) + (year << 9);
+		return date;
 	}
 }
 	
